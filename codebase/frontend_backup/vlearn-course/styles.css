@@ -70,6 +70,8 @@ h1 { margin: 0; font-size: 26px; letter-spacing: -.04em; }
 .day-action small { margin-top: 3px; color: var(--muted); font-size: 12px; font-weight: 550; line-height: 1.3; }
 .day-action--warmup { border-color: #cbdcec; }
 .day-action--warmup > span { background: #eff7e7; color: #4e8c24; }
+.day-action--quiz { border-color: #cbdcec; }
+.day-action--quiz > span { background: #eff7e7; color: #4e8c24; }
 .resource-drawer, .question-drawer { margin-top: 14px; padding: 15px 16px; border: 1px solid #dce6f0; border-radius: 12px; background: var(--surface); }
 .drawer-heading { display: flex; align-items: center; gap: 10px; color: var(--navy); }
 .drawer-heading > span { display: grid; width: 31px; height: 31px; place-items: center; border-radius: 8px; background: #e8f2fc; color: var(--blue); }

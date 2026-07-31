@@ -1,15 +1,21 @@
-from typing import List, Optional, Literal
+from typing import List, Optional, Literal, Dict
 from pydantic import BaseModel, Field
+
+
+# ==========================================
+# 1. THỰC THỂ CƠ BẢN (CORE ENTITIES)
+# ==========================================
 
 class Citation(BaseModel):
     """
-    Thực thể biểu diễn trích dẫn cụ thể từ tài liệu bài giảng
+    Thực thể biểu diễn trích dẫn cụ thể từ tài liệu bài giảng (Transcript & Slide)
     """
     chunk_id: str = Field(..., description="Mã đoạn transcript dạng Txx-NNN")
     source_file: str = Field(..., description="Tên file transcript sạch")
     slide_file: Optional[str] = Field(None, description="Tên file slide PDF (ví dụ: d1-slide-hackathon.pdf)")
     slide_page: Optional[int] = Field(None, description="Trang slide tương ứng")
     quote: str = Field(..., description="Đoạn văn bản trích dẫn trực tiếp từ transcript")
+
 
 class Question(BaseModel):
     """
@@ -25,12 +31,18 @@ class Question(BaseModel):
     explanation: str = Field(..., description="Giải thích gốc từ quizzend.json")
     citations: List[Citation] = Field(default=[], description="Danh sách trích dẫn chi tiết từ transcript và slide")
 
+
+# ==========================================
+# 2. FEATURE 1: LỌC QUIZ & ĐÁNH GIÁ (QUIZ SYSTEM)
+# ==========================================
+
 class QuizRequest(BaseModel):
     """
     Dữ liệu yêu cầu lọc câu hỏi
     """
     awareness_level: int = Field(..., ge=1, le=5, description="Mức độ nhận biết từ 1 đến 5")
     vague_knowledge: Optional[str] = Field(None, description="Phần kiến thức nào học viên cảm thấy mơ hồ")
+
 
 class QuizResponse(BaseModel):
     """
@@ -43,6 +55,11 @@ class QuizResponse(BaseModel):
     message: Optional[str] = Field(None, description="Thông báo hướng dẫn khi cần làm rõ")
     suggested_topics: List[str] = Field(default=[], description="Gợi ý chủ đề trong ngày học")
 
+
+# ==========================================
+# 3. FEATURE 2: GIẢI THÍCH CÂU HỎI (EXPLAIN SYSTEM)
+# ==========================================
+
 class ExplainRequest(BaseModel):
     """
     Dữ liệu yêu cầu AI giải thích câu trả lời
@@ -51,6 +68,7 @@ class ExplainRequest(BaseModel):
     options: Optional[List[str]] = Field(None, description="Danh sách các lựa chọn (nếu có)")
     user_answer: Optional[str] = Field(None, description="Lựa chọn của học viên (A, B, C, D, ...)")
 
+
 class ExplainResponse(BaseModel):
     """
     Dữ liệu trả về khi giải thích câu hỏi
@@ -58,3 +76,48 @@ class ExplainResponse(BaseModel):
     correct_answer: str = Field(..., description="Đáp án đúng được AI xác định")
     explanation: str = Field(..., description="Giải thích chi tiết của AI dựa trên transcript")
     citations: List[Citation] = Field(default=[], description="Các nguồn trích dẫn từ transcript và slide")
+
+
+# ==========================================
+# 4. FEATURE 3: GỢI Ý BÀI HỌC THEO CẤP ĐỘ (HINT SYSTEM)
+# ==========================================
+
+class HintRequest(BaseModel):
+    """
+    Dữ liệu yêu cầu gợi ý câu hỏi theo cấp độ
+    """
+    question_text: str = Field(..., description="Nội dung câu hỏi")
+    options: List[str] = Field(..., description="Danh sách các phương án lựa chọn")
+    hint_level: int = Field(..., ge=1, le=3, description="Cấp độ gợi ý (1: Nhẹ, 2: Vừa, 3: Sát đáp án)")
+
+
+class HintResponse(BaseModel):
+    """
+    Dữ liệu trả về gợi ý câu hỏi từ AI Tutor
+    """
+    hint_level: int = Field(..., description="Cấp độ gợi ý phản hồi")
+    hint_text: str = Field(..., description="Nội dung gợi ý tương ứng")
+    elo_deduction: float = Field(..., description="Tỷ lệ khấu trừ điểm (0.3, 0.6, 0.9)")
+    citations: List[Citation] = Field(default=[], description="Các nguồn trích dẫn từ transcript và slide")
+
+
+# ==========================================
+# 5. FEATURE 4: CHAT DẪN DẮT SOCRATIC (SOCRATIC TUTOR AGENT)
+# ==========================================
+
+class SocraticChatRequest(BaseModel):
+    """
+    Dữ liệu yêu cầu chat dẫn dắt Socratic
+    """
+    question_text: str = Field(..., description="Nội dung câu hỏi hiện tại")
+    options: List[str] = Field(..., description="Danh sách các lựa chọn")
+    user_message: str = Field(..., description="Tin nhắn của học viên")
+    history: List[Dict[str, str]] = Field(default=[], description="Lịch sử cuộc hội thoại")
+
+
+class SocraticChatResponse(BaseModel):
+    """
+    Phản hồi dẫn dắt từ AI Tutor theo phương pháp Socratic
+    """
+    reply: str = Field(..., description="Nội dung trả lời dẫn dắt từ AI")
+    citations: List[Citation] = Field(default=[], description="Các nguồn trích dẫn hỗ trợ")

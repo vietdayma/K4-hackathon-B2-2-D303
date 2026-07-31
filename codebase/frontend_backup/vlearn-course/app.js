@@ -17,15 +17,20 @@ function transcriptPath(day) {
 
 function detailMarkup(day) {
   const isWarmupReady = day.day === 1;
+  const isQuizReady = day.day === 1;
   return `
     <div class="day-actions" aria-label="Tài nguyên Day${String(day.day).padStart(2, "0")}">
       ${
         isWarmupReady
-          ? `<a class="day-action day-action--warmup" href="../warmup-ai/index.html"><span>◷</span><b>Chuẩn bị trước buổi học</b><small>Warm-up AI · khoảng 4 phút</small></a>`
+          ? `<a class="day-action day-action--warmup" href="../warmup-ai/"><span>◷</span><b>Chuẩn bị trước buổi học</b><small>Warm-up AI · khoảng 4 phút</small></a>`
           : `<button class="day-action" type="button" data-unavailable="warmup"><span>◷</span><b>Chuẩn bị trước buổi học</b><small>Đang được biên soạn</small></button>`
       }
       <button class="day-action" type="button" data-action="slides"><span>▤</span><b>Đọc slide</b><small>${day.slides} slide · mở tài liệu bên dưới</small></button>
-      <button class="day-action" type="button" data-action="questions"><span>?</span><b>Câu hỏi sau buổi học</b><small>Ghi lại điều bạn muốn hỏi thêm</small></button>
+      ${
+        isQuizReady
+          ? `<a class="day-action day-action--quiz" href="../quiz/"><span>✓</span><b>Kiểm tra sau bài</b><small>Khảo sát nhanh và quiz củng cố</small></a>`
+          : `<button class="day-action" type="button" data-unavailable="quiz"><span>✓</span><b>Kiểm tra sau bài</b><small>Đang được biên soạn</small></button>`
+      }
     </div>
     <div class="resource-drawer" data-drawer="slides" hidden>
       <div class="drawer-heading"><span>▤</span><div><b>Tài liệu Day${String(day.day).padStart(2, "0")}</b><small>Chọn tài liệu để đọc trong một tab mới</small></div></div>
@@ -38,11 +43,6 @@ function detailMarkup(day) {
         <a href="${transcriptPath(day.day)}" target="_blank" rel="noreferrer"><span class="file-type file-type--note">MD</span><b>Transcript Day${String(day.day).padStart(2, "0")}</b><small>Mở ghi chú ↗</small></a>
       </div>
     </div>
-    <form class="question-drawer" data-drawer="questions" hidden>
-      <label for="question-${day.day}">Câu hỏi của bạn cho Day${String(day.day).padStart(2, "0")}</label>
-      <div><input id="question-${day.day}" maxlength="180" placeholder="Ví dụ: Phần nào trong bài hôm nay cần được giải thích thêm?" /><button type="submit">Lưu câu hỏi</button></div>
-      <p class="question-status" aria-live="polite"></p>
-    </form>
   `;
 }
 
@@ -84,24 +84,14 @@ function wireDay(card, day) {
     const button = event.target.closest("[data-action]");
     const unavailable = event.target.closest("[data-unavailable]");
     if (unavailable) {
-      announce(`Phần chuẩn bị của Day${String(day.day).padStart(2, "0")} đang được biên soạn.`);
+      const section = unavailable.dataset.unavailable === "quiz" ? "Bài kiểm tra" : "Phần chuẩn bị";
+      announce(`${section} của Day${String(day.day).padStart(2, "0")} đang được biên soạn.`);
       return;
     }
     if (!button) return;
     toggleDrawer(details, button.dataset.action);
   });
 
-  details.querySelector(".question-drawer").addEventListener("submit", (event) => {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const input = form.querySelector("input");
-    const status = form.querySelector(".question-status");
-    const question = input.value.trim();
-    if (!question) return;
-    window.localStorage.setItem(`vlearn-day-${day.day}-question`, question);
-    status.textContent = "Đã lưu câu hỏi trên trình duyệt này.";
-    input.value = "";
-  });
 }
 
 days.forEach((day) => {

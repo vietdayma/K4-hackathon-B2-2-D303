@@ -4,13 +4,14 @@ Warm-up tương tác trước buổi học AI: 5 tình huống, tỷ lệ chọn
 
 ## Chạy local
 
-Từ thư mục này:
+Từ root repo:
 
 ```bash
-python3 -m http.server 4173
+cd codebase/frontend
+python3 -m http.server 4176
 ```
 
-Mở `http://localhost:4173`.
+Mở `http://localhost:4176/warmup-ai/`.
 
 ## File chính
 
@@ -22,7 +23,7 @@ Mở `http://localhost:4173`.
 ## Quy ước product
 
 - Không có câu trả lời đúng/sai; kết quả là tỉ lệ mock tổng bằng 100%.
-- Nút **Về khóa học** quay lại `../vlearn-course/index.html`; khi đang làm bài, thao tác này phải đi qua cảnh báo xoá tiến độ.
+- Trong lượt làm chỉ có nút **Thoát**; thao tác này luôn đi qua cảnh báo xoá tiến độ trước khi về sảnh chờ.
 - Dữ liệu thảo luận dùng `localStorage`, vì vậy chỉ hiện trong trình duyệt hiện tại. Muốn đồng bộ cả lớp cần API/database riêng.
 - Đừng xóa luồng exit confirmation, keyboard shortcuts hay `prefers-reduced-motion` khi mở rộng.
 
