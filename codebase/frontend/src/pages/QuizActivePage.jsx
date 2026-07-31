@@ -2,13 +2,16 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Quiz.css';
 
-const ELO_DEDUCTIONS = { 0: 0.0, 1: 0.3, 2: 0.6, 3: 0.9 };
+const ELO_DEDUCTIONS = { 0: 0, 1: 20, 2: 30, 3: 50 };
 
 export default function QuizActivePage() {
   const navigate = useNavigate();
   const [quizzes, setQuizzes] = useState([]);
   const [currentIdx, setCurrentIdx] = useState(0);
-  const [eloScore, setEloScore] = useState(0);
+
+  // 1. Khởi tạo sẵn 100 điểm Elo ngay từ đầu
+  const [eloScore, setEloScore] = useState(100);
+
   const [isAnswered, setIsAnswered] = useState(false);
   const [answersState, setAnswersState] = useState([]);
 
@@ -63,7 +66,6 @@ export default function QuizActivePage() {
   // Đăng ký sự kiện phím tắt (1, 2, 3, 4, Enter)
   useEffect(() => {
     const handleKeyDown = (e) => {
-      // Bỏ qua phím tắt nếu đang gõ chat input
       if (document.activeElement.id === 'chatInput') return;
 
       if (!isAnswered && quizzes.length > 0) {
@@ -93,7 +95,7 @@ export default function QuizActivePage() {
 
   const currentQuiz = quizzes[currentIdx];
 
-  // Hàm chọn đáp án (hoặc Skip)
+  // Hàm chọn đáp án
   const handleSelectAnswer = async (selectedId) => {
     if (isAnswered) return;
     setIsAnswered(true);
@@ -121,11 +123,10 @@ export default function QuizActivePage() {
       const correctLetter = data.correct_answer;
       const isCorrect = (selectedId === correctLetter);
 
-      // Tính điểm Elo
+      // Cộng thêm 10 Elo nếu trả lời đúng
       let scoreEarned = 0;
       if (isCorrect) {
-        const deduction = ELO_DEDUCTIONS[currentHintLevelUsed] || 0;
-        scoreEarned = Math.round(10 * (1 - deduction));
+        scoreEarned = 10;
         setEloScore(prev => prev + scoreEarned);
       }
 
@@ -155,7 +156,7 @@ export default function QuizActivePage() {
     }
   };
 
-  // Hàm lấy gợi ý Hint từ API
+  // 2. Hàm lấy gợi ý Hint từ API (Chuẩn body request & trừ thẳng điểm Elo)
   const handleGetHint = async (level) => {
     setLoadingHintLevel(level);
     console.log(`[QuizActive API Hint Request] Gọi Hint mức ${level} cho câu: ${currentQuiz.id}`);
@@ -178,8 +179,11 @@ export default function QuizActivePage() {
       const data = await res.json();
       console.log("[QuizActive API Hint Response] Nhận gợi ý:", data);
 
-      // Cập nhật hint level cao nhất đã dùng
-      setCurrentHintLevelUsed(prev => Math.max(prev, level));
+      // Trừ điểm Elo cố định: Mức 1 (-20), Mức 2 (-30), Mức 3 (-50)
+      const pointsToDeduct = ELO_DEDUCTIONS[level] || 0;
+      setEloScore(prev => Math.max(0, prev - pointsToDeduct));
+
+      setCurrentHintLevelUsed(level);
       setActiveHintText(data.hint_text);
       setActiveHintCitations(data.citations || []);
       setShowHintContent(true);
@@ -196,13 +200,10 @@ export default function QuizActivePage() {
     const text = chatInputText.trim();
     if (!text) return;
 
-    // Append tin nhắn của User
     const updatedHistory = [...chatHistory, { role: "user", content: text }];
     setChatHistory(updatedHistory);
     setChatInputText('');
     setIsChatTyping(true);
-
-    console.log(`[QuizActive API Chat Request] Tin nhắn chat: '${text}'`);
 
     try {
       const res = await fetch('http://localhost:8000/api/quiz/chat', {
@@ -221,8 +222,6 @@ export default function QuizActivePage() {
       }
 
       const data = await res.json();
-      console.log("[QuizActive API Chat Response] Phản hồi Socratic:", data);
-
       setChatHistory(prev => [
         ...prev,
         {
@@ -249,7 +248,6 @@ export default function QuizActivePage() {
   const handleNext = () => {
     if (currentIdx < quizzes.length - 1) {
       setCurrentIdx(prev => prev + 1);
-      // Reset states
       setIsAnswered(false);
       setCurrentHintLevelUsed(0);
       setActiveHintText('');
@@ -258,7 +256,6 @@ export default function QuizActivePage() {
       setChatHistory([]);
       setShowHintContent(false);
     } else {
-      // Đã hoàn thành 10 câu -> hiển thị Scoreboard
       setShowScoreboard(true);
     }
   };
@@ -353,9 +350,9 @@ export default function QuizActivePage() {
                           handleGetHint(levelNum);
                         }}
                       >
-                        {levelNum === 1 && `Cấp 1: Chủ đề (-30% Elo)`}
-                        {levelNum === 2 && `Cấp 2: Định nghĩa (-60% Elo)`}
-                        {levelNum === 3 && `Cấp 3: Gợi ý sát (-90% Elo)`}
+                        {levelNum === 1 && `Cấp 1: Chủ đề (-20 Elo)`}
+                        {levelNum === 2 && `Cấp 2: Định nghĩa (-30 Elo)`}
+                        {levelNum === 3 && `Cấp 3: Gợi ý sát (-50 Elo)`}
                         {loadingHintLevel === levelNum && " (Đang tải...)"}
                       </button>
                     ))}
@@ -363,7 +360,7 @@ export default function QuizActivePage() {
 
                   {activeHintText && (
                     <div className="hint-result-text" style={{ display: 'block', marginTop: '10px' }}>
-                      <div><strong>Gợi ý từ Tutor (Trừ {(ELO_DEDUCTIONS[currentHintLevelUsed] || 0) * 100}% Elo):</strong></div>
+                      <div><strong>Gợi ý từ Tutor (Đã trừ {ELO_DEDUCTIONS[currentHintLevelUsed] * 100}% Elo):</strong></div>
                       <div style={{ marginTop: '6px' }}>{activeHintText}</div>
 
                       {/* Citations trong Hint */}
@@ -396,7 +393,6 @@ export default function QuizActivePage() {
             {currentQuiz.options.map((optionText, idx) => {
               const letter = optionLetters[idx];
 
-              // Loại bỏ prefix chữ cái
               let cleanText = optionText;
               if (optionText.startsWith(`${letter}. `)) {
                 cleanText = optionText.substring(3);
@@ -404,7 +400,6 @@ export default function QuizActivePage() {
                 cleanText = optionText.substring(2);
               }
 
-              // Xác định style active
               let classNames = "option-item";
               if (isAnswered && explainData) {
                 if (letter === explainData.correct_answer) {
@@ -456,7 +451,7 @@ export default function QuizActivePage() {
                 color: (currentAnswer && currentAnswer.isCorrect) ? "var(--friendly-green-dark)" : "var(--primary-color-dark)"
               }}>
                 {loadingExplain && "Đang phân tích đáp án..."}
-                {!loadingExplain && currentAnswer && currentAnswer.isCorrect && `Tutor: “Tuyệt vời! Bạn đã trả lời chính xác và đạt ${currentAnswer.score} Elo!”`}
+                {!loadingExplain && currentAnswer && currentAnswer.isCorrect && `Tutor: “Tuyệt vời! Bạn đã trả lời chính xác và được cộng ${currentAnswer.score} Elo!”`}
                 {!loadingExplain && currentAnswer && !currentAnswer.isCorrect && (
                   currentAnswer.selectedAnswer === 'SKIP'
                     ? "Tutor: “Bạn đã bỏ qua câu hỏi. Hãy xem giải thích bên dưới để ôn tập nhé!”"
@@ -567,7 +562,6 @@ export default function QuizActivePage() {
             <div key={idx} className={`chat-message ${msg.role === 'user' ? 'user' : 'assistant'}`}>
               <div className="chat-text">{msg.content}</div>
 
-              {/* Citations trong Chat */}
               {msg.citations && msg.citations.length > 0 && (
                 <div className="citations-list" style={{ marginTop: '8px', borderTop: '1px dashed #cbd5e1', paddingTop: '6px' }}>
                   {msg.citations.map((c, cIdx) => (
@@ -634,7 +628,7 @@ export default function QuizActivePage() {
               </div>
               <div className="stat-card highlight">
                 <span className="stat-value">{eloScore}</span>
-                <span className="stat-label">Elo đạt được</span>
+                <span className="stat-label">Elo còn lại</span>
               </div>
             </div>
             <div className="scoreboard-evaluation" id="evaluationText">
@@ -645,9 +639,8 @@ export default function QuizActivePage() {
                 type="button"
                 className="btn-action"
                 onClick={() => {
-                  // Chạy lại quiz
                   setCurrentIdx(0);
-                  setEloScore(0);
+                  setEloScore(100);
                   setIsAnswered(false);
                   setAnswersState(Array(quizzes.length).fill(null));
                   setCurrentHintLevelUsed(0);
