@@ -1,3 +1,28 @@
-.DS_Store
-node_modules/
+# Environment & Secret variables (Tuyệt đối không đẩy lên Git)
+.env
 *.env
+.env.*
+
+# Node / Frontend Dependencies & Build
+node_modules/
+build/
+dist/
+.npm
+
+# Python / Backend Cache & Virtual Environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Project Data & Cache
+.data/
+*.log
+.cache/
