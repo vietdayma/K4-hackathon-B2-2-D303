@@ -161,10 +161,12 @@ const state = {
 const mascotAnimations = {};
 
 const elements = {
+  topbar: document.querySelector("#warmupTopbar"),
   stage: document.querySelector(".stage"),
   sceneContent: document.querySelector("#sceneContent"),
   progressFill: document.querySelector("#progressFill"),
   progressLabel: document.querySelector("#progressLabel"),
+  progressWrap: document.querySelector("#progressWrap"),
   leftCharacter: document.querySelector("#leftCharacter"),
   rightCharacter: document.querySelector("#rightCharacter"),
   leftSpeakerChip: document.querySelector("#leftSpeakerChip"),
@@ -174,6 +176,7 @@ const elements = {
   fullscreenButton: document.querySelector("#fullscreenButton"),
   replayButton: document.querySelector("#replayButton"),
   exitButton: document.querySelector("#exitButton"),
+  courseBackLink: document.querySelector("#courseBackLink"),
   exitDialog: document.querySelector("#exitDialog"),
   announcer: document.querySelector("#announcer")
 };
@@ -920,6 +923,7 @@ function render() {
   if (state.view === "results") renderQuestion(true);
   if (state.view === "finale") renderKeyMoments(true);
   syncExitControl();
+  syncHeaderState();
 }
 
 function setAction(label, disabled, key, hint) {
@@ -1065,6 +1069,15 @@ function syncFullscreenButton() {
 
 function syncExitControl() {
   elements.exitButton.hidden = !isAttemptActive();
+}
+
+function syncHeaderState() {
+  const attemptActive = isAttemptActive();
+  elements.progressWrap.hidden = !attemptActive;
+  elements.courseBackLink.hidden = attemptActive;
+  elements.topbar.setAttribute("aria-label", attemptActive ? "Tiến độ warm-up" : "Điều hướng warm-up");
+  elements.topbar.classList.toggle("topbar--attempt", attemptActive);
+  elements.topbar.classList.toggle("topbar--overview", !attemptActive);
 }
 
 function isAttemptActive() {
