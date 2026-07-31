@@ -1,4 +1,4 @@
-from typing import List, Optional, Literal
+from typing import List, Optional, Literal, Dict
 from pydantic import BaseModel, Field
 
 class Citation(BaseModel):
@@ -58,3 +58,36 @@ class ExplainResponse(BaseModel):
     correct_answer: str = Field(..., description="Đáp án đúng được AI xác định")
     explanation: str = Field(..., description="Giải thích chi tiết của AI dựa trên transcript")
     citations: List[Citation] = Field(default=[], description="Các nguồn trích dẫn từ transcript và slide")
+
+class HintRequest(BaseModel):
+    """
+    Dữ liệu yêu cầu gợi ý câu hỏi theo cấp độ
+    """
+    question_text: str = Field(..., description="Nội dung câu hỏi")
+    options: List[str] = Field(..., description="Danh sách các phương án lựa chọn")
+    hint_level: int = Field(..., ge=1, le=3, description="Cấp độ gợi ý (1, 2, 3)")
+
+class HintResponse(BaseModel):
+    """
+    Dữ liệu trả về gợi ý câu hỏi từ AI Tutor
+    """
+    hint_level: int = Field(..., description="Cấp độ gợi ý phản hồi")
+    hint_text: str = Field(..., description="Nội dung gợi ý tương ứng")
+    elo_deduction: float = Field(..., description="Tỷ lệ khấu trừ điểm (0.3, 0.6, 0.9)")
+    citations: List[Citation] = Field(default=[], description="Các nguồn trích dẫn từ transcript và slide")
+
+class SocraticChatRequest(BaseModel):
+    """
+    Dữ liệu yêu cầu chat dẫn dắt Socratic
+    """
+    question_text: str = Field(..., description="Nội dung câu hỏi hiện tại")
+    options: List[str] = Field(..., description="Danh sách các lựa chọn")
+    user_message: str = Field(..., description="Tin nhắn của học viên")
+    history: List[Dict[str, str]] = Field(default=[], description="Lịch sử chat")
+
+class SocraticChatResponse(BaseModel):
+    """
+    Phản hồi dẫn dắt từ AI Tutor
+    """
+    reply: str = Field(..., description="Nội dung trả lời dẫn dắt")
+    citations: List[Citation] = Field(default=[], description="Các nguồn trích dẫn hỗ trợ")

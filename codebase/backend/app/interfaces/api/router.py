@@ -1,6 +1,6 @@
 from typing import Optional
 from fastapi import APIRouter, Request, Query, HTTPException
-from app.core.entities import ExplainRequest, ExplainResponse, QuizResponse
+from app.core.entities import ExplainRequest, ExplainResponse, QuizResponse, HintRequest, HintResponse, SocraticChatRequest, SocraticChatResponse
 
 router = APIRouter()
 
@@ -48,3 +48,52 @@ async def explain_quiz(
     except Exception as e:
         print(f"[API_ROUTER] Error in POST /explain: {e}")
         raise HTTPException(status_code=500, detail=f"Lỗi hệ thống: {str(e)}")
+
+@router.post("/quiz/hint", response_model=HintResponse)
+async def get_socratic_hint(
+    request: Request,
+    body: HintRequest
+):
+    """
+    API gợi ý Socratic theo cấp độ (1, 2, 3):
+    - Cấp độ 1: Gợi ý chung, định hướng từ khóa, khấu trừ 30% Elo.
+    - Cấp độ 2: Giải nghĩa khái niệm kỹ thuật từ bài giảng, khấu trừ 60% Elo.
+    - Cấp độ 3: Manh mối cực sát, khấu trừ 90% Elo.
+    AI Tutor không bao giờ tiết lộ đáp án ở Cấp độ 1 và 2.
+    """
+    usecase = request.app.state.rag_usecase
+    try:
+        result = usecase.get_socratic_hint(
+            question_text=body.question_text,
+            options=body.options,
+            hint_level=body.hint_level
+        )
+        return result
+    except Exception as e:
+        print(f"[API_ROUTER] Error in POST /quiz/hint: {e}")
+        raise HTTPException(status_code=500, detail=f"Lỗi hệ thống: {str(e)}")
+
+@router.post("/quiz/chat", response_model=SocraticChatResponse)
+async def socratic_chat(
+    request: Request,
+    body: SocraticChatRequest
+):
+    """
+    API chat dẫn dắt Socratic:
+    Học viên đặt câu hỏi tự do về nội dung câu hỏi đang làm.
+    AI Tutor phản hồi bằng cách gợi mở, đặt câu hỏi ngược, không tiết lộ đáp án.
+    Bảo vệ chống prompt injection và câu hỏi ngoài phạm vi.
+    """
+    usecase = request.app.state.rag_usecase
+    try:
+        result = usecase.chat_socratic(
+            question_text=body.question_text,
+            options=body.options,
+            user_message=body.user_message,
+            history=body.history
+        )
+        return result
+    except Exception as e:
+        print(f"[API_ROUTER] Error in POST /quiz/chat: {e}")
+        raise HTTPException(status_code=500, detail=f"Lỗi hệ thống: {str(e)}")
+

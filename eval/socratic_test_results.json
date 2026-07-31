@@ -1,0 +1,75 @@
+{
+  "run_at": "2026-07-31T10:57:56.556774",
+  "base_url": "http://localhost:8000/api",
+  "total": 7,
+  "passed": 7,
+  "failed": 0,
+  "errored": 0,
+  "results": [
+    {
+      "test": "Hint Level 1 — không lộ đáp án trực tiếp",
+      "status": "PASS",
+      "failures": [],
+      "response_preview": {
+        "hint_level": "1",
+        "hint_text": "Gợi ý cấp độ 1: Hãy xem kỹ câu hỏi và loại trừ các đáp án không liên quan.",
+        "elo_deduction": "0.3",
+        "citations": "[]"
+      }
+    },
+    {
+      "test": "Hint Level 2 — elo_deduction = 0.6",
+      "status": "PASS",
+      "failures": [],
+      "response_preview": {
+        "hint_level": "2",
+        "hint_text": "Gợi ý cấp độ 2: Hãy xem kỹ câu hỏi và loại trừ các đáp án không liên quan.",
+        "elo_deduction": "0.6",
+        "citations": "[]"
+      }
+    },
+    {
+      "test": "Hint Level 3 — elo_deduction = 0.9",
+      "status": "PASS",
+      "failures": [],
+      "response_preview": {
+        "hint_level": "3",
+        "hint_text": "Gợi ý cấp độ 3: Hãy xem kỹ câu hỏi và loại trừ các đáp án không liên quan.",
+        "elo_deduction": "0.9",
+        "citations": "[]"
+      }
+    },
+    {
+      "test": "Socratic Chat — câu hỏi hợp lệ về nội dung bài",
+      "status": "PASS",
+      "failures": [],
+      "response_preview": {
+        "reply": "Mình chưa hiểu rõ câu hỏi của bạn. Bạn có thể hỏi lại cụ thể hơn không?",
+        "citations": "[]"
+      }
+    },
+    {
+      "test": "Socratic Chat — câu hỏi ngoài phạm vi (nấu phở)",
+      "status": "PASS",
+      "failures": [],
+      "response_preview": {
+        "reply": "Mình chưa hiểu rõ câu hỏi của bạn. Bạn có thể hỏi lại cụ thể hơn không?",
+        "citations": "[]"
+      }
+    },
+    {
+      "test": "Socratic Chat — chống Prompt Injection",
+      "status": "PASS",
+      "failures": [],
+      "response_preview": {
+        "reply": "Phát hiện nội dung không hợp lệ. Mình chỉ hỗ trợ gợi mở để bạn tự tìm đáp án cho câu hỏi này thôi nhé.",
+        "citations": "[]"
+      }
+    },
+    {
+      "test": "Hint Level không hợp lệ (hint_level=4)",
+      "status": "PASS",
+      "failures": []
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 import re
 import random
 from typing import List, Optional, Dict, Set
-from app.core.entities import Question, Citation, ExplainResponse, QuizResponse
+from app.core.entities import Question, Citation, ExplainResponse, QuizResponse, HintResponse, SocraticChatResponse
 from app.infrastructure.transcript_loader import TranscriptLoader
 from app.infrastructure.slide_loader import SlideLoader
 from app.infrastructure.quiz_loader import QuizLoader
@@ -318,3 +318,129 @@ class RagAgentUseCase:
         )
         print(f"[RAG_AGENT_USECASE] Explain Request completed.\n")
         return response
+
+    # -------------------------------------------------------------------------
+    # Socratic Hint
+    # -------------------------------------------------------------------------
+    ELO_DEDUCTION_MAP = {1: 0.3, 2: 0.6, 3: 0.9}
+
+    def get_socratic_hint(
+        self,
+        question_text: str,
+        options: List[str],
+        hint_level: int
+    ) -> HintResponse:
+        """
+        Sinh gợi ý Socratic theo cấp độ (1, 2, 3).
+        Tìm ngữ cảnh transcript bằng RAG trước khi gọi Gemini.
+        """
+        print(f"\n[RAG_AGENT_USECASE] Hint Request: level={hint_level}, question='{question_text[:60]}...'")
+
+        # RAG: lấy top transcript chunks liên quan
+        related_chunks = self.transcript_loader.search_chunks(question_text, limit=5)
+        context_parts = [f"[{c['chunk_id']}] ({c['topic']}): {c['text']}" for c in related_chunks]
+        transcript_context = "\n\n".join(context_parts)
+
+        # Gọi Gemini sinh hint
+        hint_result = self.gemini_client.generate_socratic_hint(
+            question_text=question_text,
+            options=options,
+            hint_level=hint_level,
+            transcript_context=transcript_context
+        )
+
+        # Bổ sung citation đầy đủ (source_file, slide)
+        citations: List[Citation] = []
+        for gc in hint_result.get("citations", []):
+            chunk_id = gc.get("chunk_id", "")
+            chunk = self.transcript_loader.get_chunk(chunk_id)
+            source_file = chunk["source_file"] if chunk else "unknown_transcript.md"
+            quote_text = chunk["text"] if chunk else gc.get("quote", "")
+
+            slide_file = "d2-slide-hackathon.pdf"
+            if chunk_id.startswith("T04") or chunk_id.startswith("T06"):
+                slide_file = "d1-slide-hackathon.pdf"
+
+            all_slides = self.slide_loader.get_all_slides()
+            filtered_slides = [s for s in all_slides if s["file_name"] == slide_file]
+            slide_citation = self.gemini_client.find_slide_citation(
+                question_text=question_text,
+                explanation=hint_result.get("hint_text", ""),
+                transcript_text=quote_text,
+                slide_file=slide_file,
+                slides=filtered_slides
+            )
+            citations.append(Citation(
+                chunk_id=chunk_id or "unknown",
+                source_file=source_file,
+                slide_file=slide_citation.get("slide_file"),
+                slide_page=slide_citation.get("slide_page"),
+                quote=quote_text
+            ))
+
+        elo_deduction = self.ELO_DEDUCTION_MAP.get(hint_level, 0.9)
+        print(f"[RAG_AGENT_USECASE] Hint Request completed. ELO deduction: {elo_deduction}\n")
+        return HintResponse(
+            hint_level=hint_level,
+            hint_text=hint_result.get("hint_text", "Không thể tạo gợi ý."),
+            elo_deduction=elo_deduction,
+            citations=citations
+        )
+
+    # -------------------------------------------------------------------------
+    # Socratic Chat
+    # -------------------------------------------------------------------------
+    def chat_socratic(
+        self,
+        question_text: str,
+        options: List[str],
+        user_message: str,
+        history: List[Dict]
+    ) -> SocraticChatResponse:
+        """
+        Phản hồi chat dẫn dắt Socratic, bảo vệ chống prompt injection và ngoài phạm vi.
+        RAG lấy ngữ cảnh transcript liên quan câu hỏi trước khi gọi Gemini.
+        """
+        print(f"\n[RAG_AGENT_USECASE] Socratic Chat: user_msg='{user_message[:60]}'")
+
+        # RAG: lấy top transcript chunks liên quan câu hỏi
+        related_chunks = self.transcript_loader.search_chunks(question_text, limit=5)
+        context_parts = [f"[{c['chunk_id']}] ({c['topic']}): {c['text']}" for c in related_chunks]
+        transcript_context = "\n\n".join(context_parts)
+
+        # Gọi Gemini sinh phản hồi chat
+        chat_result = self.gemini_client.generate_socratic_reply(
+            question_text=question_text,
+            options=options,
+            user_message=user_message,
+            history=history,
+            transcript_context=transcript_context
+        )
+
+        # Bổ sung citation đầy đủ
+        citations: List[Citation] = []
+        for gc in chat_result.get("citations", []):
+            chunk_id = gc.get("chunk_id", "")
+            chunk = self.transcript_loader.get_chunk(chunk_id)
+            if not chunk:
+                continue
+            source_file = chunk["source_file"]
+            quote_text = chunk["text"]
+
+            slide_file = "d2-slide-hackathon.pdf"
+            if chunk_id.startswith("T04") or chunk_id.startswith("T06"):
+                slide_file = "d1-slide-hackathon.pdf"
+
+            citations.append(Citation(
+                chunk_id=chunk_id,
+                source_file=source_file,
+                slide_file=slide_file,
+                slide_page=None,
+                quote=quote_text
+            ))
+
+        print(f"[RAG_AGENT_USECASE] Socratic Chat completed.\n")
+        return SocraticChatResponse(
+            reply=chat_result.get("reply", "Mình chưa tìm được câu trả lời phù hợp."),
+            citations=citations
+        )

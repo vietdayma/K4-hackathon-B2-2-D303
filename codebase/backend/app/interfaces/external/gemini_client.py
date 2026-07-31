@@ -2,13 +2,14 @@ import json
 import re
 import unicodedata
 from typing import List, Dict, Optional
-import google.generativeai as genai
+from google import genai
+from google.genai import types as genai_types
 from app.config import settings
 
 class GeminiClient:
     def __init__(self):
-        # Cấu hình API Key
-        genai.configure(api_key=settings.GEMINI_API_KEY)
+        # Khởi tạo client SDK v1 (HTTP-only, không dùng grpc)
+        self.client = genai.Client(api_key=settings.GEMINI_API_KEY)
         self.model_name = settings.GEMINI_MODEL
         print(f"[GEMINI_CLIENT] Initialized with model {self.model_name}")
 
@@ -16,22 +17,18 @@ class GeminiClient:
         """
         Gọi Gemini API và yêu cầu phản hồi dạng JSON
         """
-        model = genai.GenerativeModel(
-            model_name=self.model_name,
+        config = genai_types.GenerateContentConfig(
+            response_mime_type="application/json",
+            temperature=0.1,
             system_instruction=system_instruction
         )
-        
-        # Cấu hình sinh JSON
-        generation_config = genai.types.GenerationConfig(
-            response_mime_type="application/json",
-            temperature=0.1  # Nhiệt độ thấp để đảm bảo tính chính xác và cấu trúc JSON ổn định
+
+        response = self.client.models.generate_content(
+            model=self.model_name,
+            contents=prompt,
+            config=config
         )
-        
-        response = model.generate_content(
-            prompt,
-            generation_config=generation_config
-        )
-        
+
         # Console log phản hồi thô phục vụ gỡ lỗi
         print(f"[GEMINI_CLIENT] Raw response length: {len(response.text) if response.text else 0}")
         return response.text
@@ -352,3 +349,149 @@ Trả về kết quả dưới dạng JSON có cấu trúc chính xác như sau:
                 "explanation": f"Có lỗi xảy ra khi gọi AI Agent: {str(e)}",
                 "citations": []
             }
+
+    def generate_socratic_hint(
+        self,
+        question_text: str,
+        options: List[str],
+        hint_level: int,
+        transcript_context: str
+    ) -> Dict:
+        """
+        Sinh gợi ý Socratic theo cấp độ (1, 2, 3).
+        Quy tắc: KHÔNG lộ đáp án ở Level 1 & 2; Level 3 có thể gợi ý trực tiếp.
+        """
+        options_str = "\n".join(options) if options else "Không có lựa chọn"
+
+        hint_rules = {
+            1: (
+                "Gợi ý Cấp 1 — Định hướng từ khóa: Chỉ hướng học viên vào CHỦ ĐỀ kỹ thuật cốt lõi của câu hỏi. "
+                "Gợi ý loại trừ 1-2 phương án vô lý NHƯNG không chỉ ra đáp án đúng. "
+                "TUYỆT ĐỐI không nhắc tên đáp án (A, B, C, D) hay nội dung của đáp án đúng."
+            ),
+            2: (
+                "Gợi ý Cấp 2 — Manh mối kỹ thuật: Trích 1 đoạn định nghĩa hoặc ví dụ từ tài liệu bài giảng "
+                "giúp học viên suy luận ra đáp án. Không được chỉ ra chữ cái đáp án. "
+                "Có thể dùng dạng: 'Hãy nhớ rằng... [khái niệm]' hoặc 'Theo bài giảng, ... [trích dẫn]'."
+            ),
+            3: (
+                "Gợi ý Cấp 3 — Manh mối cực sát: Được phép đưa gợi ý rất trực tiếp, "
+                "thậm chí chỉ thẳng vào phương án đúng nếu cần, giúp học viên không bị kẹt."
+            ),
+        }
+
+        system_instruction = (
+            "Bạn là một AI Tutor Socratic chuyên nghiệp cho khóa học 'AI Thực Chiến'. "
+            "Hãy tạo gợi ý theo đúng cấp độ được yêu cầu. "
+            f"Quy tắc cấp độ này: {hint_rules.get(hint_level, hint_rules[3])} "
+            "Phản hồi bằng tiếng Việt, thân thiện, khuyến khích học tập."
+        )
+
+        prompt = f"""Câu hỏi trắc nghiệm: "{question_text}"
+Các lựa chọn:
+{options_str}
+
+Ngữ cảnh transcript bài giảng liên quan:
+\"\"\"
+{transcript_context}
+\"\"\"
+
+Yêu cầu: Tạo gợi ý Cấp độ {hint_level} theo đúng quy tắc.
+Trích xuất tối đa 1 mã đoạn transcript (dạng Txx-NNN) làm căn cứ.
+
+Trả về JSON chính xác:
+{{
+  "hint_level": {hint_level},
+  "hint_text": "nội dung gợi ý chi tiết bằng tiếng Việt",
+  "citations": [
+     {{
+        "chunk_id": "Txx-NNN",
+        "quote": "đoạn trích dẫn trực tiếp từ transcript"
+     }}
+  ]
+}}
+"""
+        try:
+            response_text = self._call_gemini_json(prompt, system_instruction)
+            result = json.loads(response_text)
+            print(f"[GEMINI_CLIENT] Socratic hint level {hint_level} generated.")
+            return result
+        except Exception as e:
+            print(f"[GEMINI_CLIENT] Error generating socratic hint: {e}")
+            return {
+                "hint_level": hint_level,
+                "hint_text": f"Gợi ý cấp độ {hint_level}: Hãy xem kỹ câu hỏi và loại trừ các đáp án không liên quan.",
+                "citations": []
+            }
+
+    def generate_socratic_reply(
+        self,
+        question_text: str,
+        options: List[str],
+        user_message: str,
+        history: List[Dict],
+        transcript_context: str
+    ) -> Dict:
+        """
+        Sinh phản hồi chat dẫn dắt Socratic.
+        Bảo vệ: chống prompt injection, từ chối câu hỏi ngoài phạm vi bài học.
+        """
+        sanitized_msg = self._sanitize_user_input(user_message)
+
+        if self._detect_prompt_injection(sanitized_msg):
+            print("[GEMINI_CLIENT] Blocked prompt injection attempt in Socratic chat.")
+            return {
+                "reply": "Phát hiện nội dung không hợp lệ. Mình chỉ hỗ trợ gợi mở để bạn tự tìm đáp án cho câu hỏi này thôi nhé.",
+                "citations": []
+            }
+
+        options_str = "\n".join(options) if options else "Không có lựa chọn"
+
+        system_instruction = (
+            "Bạn là AI Tutor Socratic cho khóa học 'AI Thực Chiến'. "
+            "QUY TẮC TUYỆT ĐỐI:\n"
+            "1. KHÔNG tiết lộ đáp án (chữ cái A/B/C/D hoặc nội dung đáp án đúng) trực tiếp. "
+            "Hãy đặt câu hỏi gợi mở, giải thích khái niệm, hoặc gợi ý học viên suy luận.\n"
+            "2. Nếu học viên hỏi ngoài lề bài học (nấu ăn, game, thời tiết...), từ chối lịch sự "
+            "và hướng về câu hỏi hiện tại.\n"
+            "3. Nếu câu hỏi mơ hồ ('tại sao?', 'sao sai?'), đọc lịch sử chat để hiểu ngữ cảnh "
+            "và giải thích khái niệm liên quan."
+        )
+
+        prompt = f"""Câu hỏi trắc nghiệm hiện tại: "{question_text}"
+Các lựa chọn:
+{options_str}
+
+Ngữ cảnh transcript bài giảng:
+\"\"\"
+{transcript_context}
+\"\"\"
+
+Lịch sử trò chuyện:
+{json.dumps(history, ensure_ascii=False)}
+
+Tin nhắn học viên: "{sanitized_msg}"
+
+Phản hồi bằng JSON:
+{{
+  "reply": "câu trả lời dẫn dắt Socratic bằng tiếng Việt",
+  "citations": [
+     {{
+        "chunk_id": "Txx-NNN nếu có trích dẫn",
+        "quote": "đoạn trích dẫn làm căn cứ"
+     }}
+  ]
+}}
+"""
+        try:
+            response_text = self._call_gemini_json(prompt, system_instruction)
+            result = json.loads(response_text)
+            print(f"[GEMINI_CLIENT] Socratic chat reply generated.")
+            return result
+        except Exception as e:
+            print(f"[GEMINI_CLIENT] Error generating socratic reply: {e}")
+            return {
+                "reply": "Mình chưa hiểu rõ câu hỏi của bạn. Bạn có thể hỏi lại cụ thể hơn không?",
+                "citations": []
+            }
+
