@@ -1014,3 +1014,36 @@
         justify-content: center;
     }
 }
+
+/* --- DUOLINGO STYLE FOR QUIZ ACTIVE REVAMP --- */
+.answer.correct-answer {
+    border-color: var(--leaf-strong) !important;
+    background: var(--friendly-green-bg) !important;
+    box-shadow: 0 4px 0 var(--leaf-strong) !important;
+}
+
+.answer.correct-answer .answer-number {
+    background: var(--leaf) !important;
+    border-color: var(--leaf-strong) !important;
+    color: white !important;
+}
+
+.answer.correct-answer .answer-copy {
+    color: var(--leaf-strong) !important;
+}
+
+.answer.wrong-answer {
+    border-color: var(--danger) !important;
+    background: var(--danger-soft) !important;
+    box-shadow: 0 4px 0 var(--danger) !important;
+}
+
+.answer.wrong-answer .answer-number {
+    background: var(--danger) !important;
+    border-color: var(--danger) !important;
+    color: white !important;
+}
+
+.answer.wrong-answer .answer-copy {
+    color: var(--danger) !important;
+}

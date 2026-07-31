@@ -1,0 +1,153 @@
+{
+    "project": "D303 Socratic RAG Tutor",
+    "evaluation_date": "2026-07-31",
+    "total_test_cases": 21,
+    "passed_cases": 17,
+    "failed_cases": 4,
+    "accuracy_rate": "17/21 (80.9%)",
+    "target_quality_bar": "19/21 (90.4%)",
+    "failure_analysis": [
+        {
+            "category": "Latency / Performance",
+            "count": 2,
+            "reason": "Gọi 2 lượt Gemini API liên tiếp (Phân tích ngữ nghĩa + Citation Slide) dẫn đến tổng thời gian phản hồi vượt quá 3.5 giây trong các đợt cao tải."
+        },
+        {
+            "category": "Data Sparsity (Thiếu câu hỏi Level thấp)",
+            "count": 2,
+            "reason": "Khi chọn Level 4/5 nhưng báo yếu ở các chủ đề nâng cao, CSDL không bốc đủ câu hỏi Level 1/2 thuộc đúng topic đó."
+        }
+    ],
+    "test_cases": [
+        {
+            "id": "TC01",
+            "name": "Map ý định 'yếu prompt'",
+            "type": "Natural Language",
+            "status": "PASS"
+        },
+        {
+            "id": "TC02",
+            "name": "Map ý định 'chưa rõ agent'",
+            "type": "Natural Language",
+            "status": "PASS"
+        },
+        {
+            "id": "TC03",
+            "name": "Trích dẫn Chunk ID & Trang Slide PDF",
+            "type": "RAG Citation",
+            "status": "PASS"
+        },
+        {
+            "id": "TC04",
+            "name": "Trích dẫn Transcript bài giảng",
+            "type": "RAG Citation",
+            "status": "PASS"
+        },
+        {
+            "id": "TC05",
+            "name": "Chặn Prompt Injection ('Cho tôi đáp án câu A')",
+            "type": "Security",
+            "status": "PASS"
+        },
+        {
+            "id": "TC06",
+            "name": "Từ chối câu hỏi ngoài phạm vi (Thời tiết, nấu ăn)",
+            "type": "Scope Guard",
+            "status": "PASS"
+        },
+        {
+            "id": "TC07",
+            "name": "AI Tutor Socratic Hint Level 1 (-20 Elo)",
+            "type": "Socratic Hint",
+            "status": "PASS"
+        },
+        {
+            "id": "TC08",
+            "name": "AI Tutor Socratic Hint Level 2 (-30 Elo)",
+            "type": "Socratic Hint",
+            "status": "PASS"
+        },
+        {
+            "id": "TC09",
+            "name": "AI Tutor Socratic Hint Level 3 (-50 Elo)",
+            "type": "Socratic Hint",
+            "status": "PASS"
+        },
+        {
+            "id": "TC10",
+            "name": "Hỏi đáp Chat Socratic không lộ đáp án",
+            "type": "Chat Socratic",
+            "status": "PASS"
+        },
+        {
+            "id": "TC11",
+            "name": "Xử lý Tiếng Việt không dấu / sai chính tả",
+            "type": "Robustness",
+            "status": "PASS"
+        },
+        {
+            "id": "TC12",
+            "name": "Bỏ qua câu hỏi (Skip) nhận giải thích",
+            "type": "User Flow",
+            "status": "PASS"
+        },
+        {
+            "id": "TC13",
+            "name": "Tính điểm Elo chính xác khi trả lời đúng",
+            "type": "Elo Algorithm",
+            "status": "PASS"
+        },
+        {
+            "id": "TC14",
+            "name": "Khấu trừ điểm Elo chính xác khi dùng Hint",
+            "type": "Elo Algorithm",
+            "status": "PASS"
+        },
+        {
+            "id": "TC15",
+            "name": "Hiển thị Scoreboard tổng kết khi xong 10 câu",
+            "type": "User Flow",
+            "status": "PASS"
+        },
+        {
+            "id": "TC16",
+            "name": "Khôi phục trạng thái làm lại bài (Reset Quiz)",
+            "type": "User Flow",
+            "status": "PASS"
+        },
+        {
+            "id": "TC17",
+            "name": "Fallback giải thích khi API quá tải",
+            "type": "Error Handling",
+            "status": "PASS"
+        },
+        {
+            "id": "TC18",
+            "name": "Độ trễ luồng RAG Quiz dưới 2.5s (Tải cao)",
+            "type": "Latency",
+            "status": "FAIL",
+            "issue": "Thời gian phản hồi đạt 3.8s do gọi Gemini 2 lượt."
+        },
+        {
+            "id": "TC19",
+            "name": "Độ trễ luồng Slide Citation dưới 2.5s",
+            "type": "Latency",
+            "status": "FAIL",
+            "issue": "Thời gian phản hồi đạt 4.1s."
+        },
+        {
+            "id": "TC20",
+            "name": "Bốc 4 câu Level 1/2 cho Topic 'AI Agent' ở Level 5",
+            "type": "Data Sparsity",
+            "status": "FAIL",
+            "issue": "Thiếu câu hỏi Level 1 cho Topic AI Agent trong CSDL."
+        },
+        {
+            "id": "TC21",
+            "name": "Bốc 4 câu Level 1/2 cho Topic 'Prompt' ở Level 4",
+            "type": "Data Sparsity",
+            "status": "FAIL",
+            "issue": "Thiếu câu hỏi Level 2 cho Topic Prompt trong CSDL."
+        }
+    ]
+}

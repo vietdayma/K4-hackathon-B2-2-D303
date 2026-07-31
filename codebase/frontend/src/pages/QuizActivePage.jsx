@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './WarmUpPage.css';
 import './Quiz.css';
 
 const ELO_DEDUCTIONS = { 0: 0, 1: 20, 2: 30, 3: 50 };
@@ -36,6 +37,59 @@ export default function QuizActivePage() {
   const [showScoreboard, setShowScoreboard] = useState(false);
 
   const chatDrawerBodyRef = useRef(null);
+
+  const lottieAnim = useRef(null);
+
+  const loadBeaAnimation = (path, loop) => {
+    if (lottieAnim.current) {
+      lottieAnim.current.destroy();
+      lottieAnim.current = null;
+    }
+    if (window.lottie) {
+      const element = document.getElementById('beaLottie');
+      if (element) {
+        lottieAnim.current = window.lottie.loadAnimation({
+          container: element,
+          renderer: 'svg',
+          loop: loop,
+          autoplay: true,
+          path: path,
+          rendererSettings: {
+            preserveAspectRatio: 'xMidYMid meet'
+          }
+        });
+      }
+    }
+  };
+
+  // Khởi tạo Lottie Bea
+  useEffect(() => {
+    const initLottie = () => {
+      if (window.lottie && !lottieAnim.current) {
+        const element = document.getElementById('beaLottie');
+        if (element) {
+          lottieAnim.current = window.lottie.loadAnimation({
+            container: element,
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: '/assets/duolingo-lottie/bea-idle.json',
+            rendererSettings: {
+              preserveAspectRatio: 'xMidYMid meet'
+            }
+          });
+        }
+      }
+    };
+    const timer = setTimeout(initLottie, 50);
+    return () => {
+      clearTimeout(timer);
+      if (lottieAnim.current) {
+        lottieAnim.current.destroy();
+        lottieAnim.current = null;
+      }
+    };
+  }, [currentIdx]);
 
   // Tải quizzes từ localStorage khi component mount
   useEffect(() => {
@@ -128,6 +182,10 @@ export default function QuizActivePage() {
       if (isCorrect) {
         scoreEarned = 10;
         setEloScore(prev => prev + scoreEarned);
+        loadBeaAnimation('/assets/duolingo-lottie/bea-correct.json', false);
+        setTimeout(() => {
+          loadBeaAnimation('/assets/duolingo-lottie/bea-idle.json', true);
+        }, 2000);
       }
 
       const currentAnswerData = {
@@ -274,275 +332,299 @@ export default function QuizActivePage() {
   const currentAnswer = answersState[currentIdx];
 
   return (
-    <div className="quiz-page-wrapper">
-      <div className="bg-blob-1"></div>
-      <div className="bg-blob-2"></div>
+    <div className="warmup-page-wrapper">
+      <div className="app-shell">
 
-      <div className="quiz-modal quiz-container" id="quizApp">
-        {/* Progress Bar */}
-        <div className="progress-bar-container" id="progressBar">
-          {quizzes.map((_, idx) => {
-            let className = "progress-segment";
-            if (idx === currentIdx) {
-              className += " active";
-            } else if (idx < currentIdx) {
-              const prev = answersState[idx];
-              className += (prev && prev.isCorrect) ? " correct" : " wrong";
-            }
-            return <div key={idx} className={className}></div>;
-          })}
-        </div>
+        {/* Header Topbar */}
+        <header className="topbar topbar--attempt" id="warmupTopbar">
+          <div className="brand" aria-label="AI Tutor Quiz">
+            <span className="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>AI Quiz</span>
+          </div>
 
-        {/* Header */}
-        <div className="quiz-header">
-          <div className="header-left">
+          <div className="progress-wrap" id="progressWrap">
+            <div className="progress-track" aria-hidden="true">
+              <div className="progress-fill" id="progressFill" style={{ transform: `scaleX(${(currentIdx + (isAnswered ? 1 : 0)) / quizzes.length})` }}></div>
+            </div>
+            <span className="progress-label" id="progressLabel">{currentIdx + 1} / {quizzes.length}</span>
+          </div>
+
+          <div className="header-actions">
             <button
-              className="btn-icon"
+              className="soundless-badge soundless-badge--exit"
+              id="exitButton"
               type="button"
-              aria-label="Quay lại phần tự đánh giá"
               onClick={() => navigate('/quiz/survey')}
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
+              <span aria-hidden="true">×</span> Thoát
             </button>
-            <div className="badge-step">Câu {currentIdx + 1} / {quizzes.length}</div>
+            <div className="soundless-badge" style={{ borderColor: '#fcd34d', color: '#b45309', background: '#fef3c7', fontWeight: 900 }}>
+              Elo: <span>{eloScore}</span>
+            </div>
           </div>
-          <div className="header-right">
-            <div className="badge-elo">Elo: <span>{eloScore}</span></div>
-          </div>
-        </div>
+        </header>
 
-        {/* Body */}
-        <div className="quiz-body" id="quizBody">
-          <h2 className="question-text">{currentQuiz.question}</h2>
+        {/* Main Stage */}
+        <main className="screen" id="screen">
+          <section className="stage stage--dialogue">
 
-          {/* HINT Dropdown */}
-          <div className="hint-wrapper">
-            <button
-              type="button"
-              className="hint-btn"
-              id="hintToggleBtn"
-              onClick={() => setShowHintContent(prev => !prev)}
+            {/* Left Mascot Character (AI Tutor Bea) */}
+            <div
+              className={`character-slot character-slot--left is-visible ${isAnswered || showHintContent ? 'is-speaking' : 'is-listening'}`}
+              id="leftCharacter"
             >
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M9 18h6"></path>
-                <path d="M10 22h4"></path>
-                <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 12 3a4.65 4.65 0 0 0-4.5 4.5c0 .85.28 1.5.83 2.15.76.76 1.23 1.52 1.41 2.5"></path>
-              </svg>
-              HINT
-            </button>
-
-            {showHintContent && (
-              <div className="hint-content" style={{ display: 'block' }}>
-                <div className="hint-inner">
-                  <p className="hint-title-select">Chọn cấp độ gợi ý (Khấu trừ Elo tương ứng):</p>
-                  <div className="hint-levels-container">
-                    {[1, 2, 3].map((levelNum) => (
-                      <button
-                        key={levelNum}
-                        type="button"
-                        className="hint-level-btn"
-                        disabled={loadingHintLevel !== null}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleGetHint(levelNum);
-                        }}
-                      >
-                        {levelNum === 1 && `Cấp 1: Chủ đề (-20 Elo)`}
-                        {levelNum === 2 && `Cấp 2: Định nghĩa (-30 Elo)`}
-                        {levelNum === 3 && `Cấp 3: Gợi ý sát (-50 Elo)`}
-                        {loadingHintLevel === levelNum && " (Đang tải...)"}
-                      </button>
-                    ))}
-                  </div>
-
-                  {activeHintText && (
-                    <div className="hint-result-text" style={{ display: 'block', marginTop: '10px' }}>
-                      <div><strong>Gợi ý từ Tutor (Đã trừ {ELO_DEDUCTIONS[currentHintLevelUsed] * 100}% Elo):</strong></div>
-                      <div style={{ marginTop: '6px' }}>{activeHintText}</div>
-
-                      {/* Citations trong Hint */}
-                      {activeHintCitations.length > 0 && (
-                        <div className="citations-list" style={{ marginTop: '8px' }}>
-                          {activeHintCitations.map((c, cIdx) => (
-                            <div key={cIdx} className="citation-item">
-                              <div className="citation-meta">
-                                <span className="citation-tag">{c.chunk_id}</span>
-                                {c.slide_file && (
-                                  <a href={`/data/vlearn-pack/slides/${c.slide_file}${c.slide_page ? `#page=${c.slide_page}` : ''}`} target="_blank" rel="noreferrer" className="citation-link">
-                                    📄 Slide: {c.slide_file} (Trang {c.slide_page || 1})
-                                  </a>
-                                )}
-                              </div>
-                              <blockquote className="citation-quote">"{c.quote}"</blockquote>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  )}
+              <div className="speaker-chip">AI Tutor đang nói</div>
+              <div className="character-art character-art--bea">
+                <div className="lottie-crop">
+                  <div className="lottie-source" id="beaLottie"></div>
                 </div>
               </div>
-            )}
-          </div>
+            </div>
 
-          {/* Options List */}
-          <div className="options-list">
-            {currentQuiz.options.map((optionText, idx) => {
-              const letter = optionLetters[idx];
+            {/* Middle Lesson Canvas */}
+            <div className="scene-content" id="sceneContent" style={{ overflowY: 'auto', maxHeight: 'calc(100vh - var(--topbar-height) - var(--actionbar-height) - 40px)', paddingBottom: '60px', scrollbarWidth: 'none' }}>
+              <div className="question-panel">
+                <p className="question-kicker">Câu {currentIdx + 1} / {quizzes.length}</p>
+                <h1 style={{ fontSize: 'clamp(20px, 2.2vw, 30px)', fontWeight: '950', lineHeight: '1.25' }}>{currentQuiz.question}</h1>
+              </div>
 
-              let cleanText = optionText;
-              if (optionText.startsWith(`${letter}. `)) {
-                cleanText = optionText.substring(3);
-              } else if (optionText.startsWith(`${letter}.`)) {
-                cleanText = optionText.substring(2);
-              }
+              {/* Answer options */}
+              <div className="answer-list" style={{ marginTop: '20px' }}>
+                {currentQuiz.options.map((optionText, idx) => {
+                  const letter = optionLetters[idx];
 
-              let classNames = "option-item";
-              if (isAnswered && explainData) {
-                if (letter === explainData.correct_answer) {
-                  classNames += " correct";
-                }
-                if (currentAnswer && currentAnswer.selectedAnswer === letter && !currentAnswer.isCorrect && currentAnswer.selectedAnswer !== 'SKIP') {
-                  classNames += " wrong";
-                }
-              }
+                  let cleanText = optionText;
+                  if (optionText.startsWith(`${letter}. `)) {
+                    cleanText = optionText.substring(3);
+                  } else if (optionText.startsWith(`${letter}.`)) {
+                    cleanText = optionText.substring(2);
+                  }
 
-              return (
-                <div
-                  key={idx}
-                  className={classNames}
-                  data-id={letter}
-                  onClick={() => handleSelectAnswer(letter)}
-                  style={{ cursor: isAnswered ? 'default' : 'pointer' }}
-                >
-                  <div className="option-letter">{letter}</div>
-                  <div className="option-text">{cleanText}</div>
-                  <div className="option-icon icon-correct">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  </div>
-                  <div className="option-icon icon-wrong">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                  const isSelected = currentAnswer && currentAnswer.selectedAnswer === letter;
+                  const hasResult = isAnswered && explainData;
+
+                  let btnClass = "answer";
+                  if (isSelected) btnClass += " is-selected";
+                  if (hasResult) {
+                    if (letter === explainData.correct_answer) {
+                      btnClass += " correct-answer";
+                    } else if (isSelected && !currentAnswer.isCorrect && currentAnswer.selectedAnswer !== 'SKIP') {
+                      btnClass += " wrong-answer";
+                    }
+                  }
+
+                  return (
+                    <button
+                      key={idx}
+                      className={btnClass}
+                      type="button"
+                      disabled={isAnswered}
+                      onClick={() => handleSelectAnswer(letter)}
+                      style={isAnswered ? { cursor: 'default' } : {}}
+                    >
+                      <span className="answer-number">{idx + 1}</span>
+                      <span className="answer-copy">{cleanText}</span>
+                      {hasResult && letter === explainData.correct_answer && (
+                        <span className="selected-note" style={{ color: 'var(--leaf-strong)', bottom: '15px' }}>ĐÚNG</span>
+                      )}
+                      {hasResult && isSelected && !currentAnswer.isCorrect && currentAnswer.selectedAnswer !== 'SKIP' && (
+                        <span className="selected-note" style={{ color: 'var(--danger)', bottom: '15px' }}>SAI</span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Skip Button */}
+              {!isAnswered && (
+                <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+                  <button
+                    type="button"
+                    className="soundless-badge"
+                    style={{ borderStyle: 'dashed', cursor: 'pointer' }}
+                    onClick={() => handleSelectAnswer('SKIP')}
+                  >
+                    Chưa biết? Bỏ qua câu này để xem đáp án
+                  </button>
+                </div>
+              )}
+
+              {/* HINT Dialogue Card */}
+              {showHintContent && (
+                <div style={{ marginTop: '24px' }}>
+                  <div className="dialogue-card" data-side="left">
+                    <span className="speaker-name">AI Tutor (Gợi ý)</span>
+                    {!currentHintLevelUsed ? (
+                      <div>
+                        <p style={{ margin: '0 0 12px 0', fontSize: '15px', fontWeight: '800' }}>Chọn cấp độ gợi ý (Khấu trừ Elo tương ứng):</p>
+                        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                          <button type="button" className="soundless-badge" style={{ cursor: 'pointer' }} onClick={() => handleGetHint(1)} disabled={loadingHintLevel !== null}>Cấp 1: Chủ đề (-20 Elo)</button>
+                          <button type="button" className="soundless-badge" style={{ cursor: 'pointer' }} onClick={() => handleGetHint(2)} disabled={loadingHintLevel !== null}>Cấp 2: Định nghĩa (-30 Elo)</button>
+                          <button type="button" className="soundless-badge" style={{ cursor: 'pointer' }} onClick={() => handleGetHint(3)} disabled={loadingHintLevel !== null}>Cấp 3: Gợi ý sát (-50 Elo)</button>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="dialogue-text" style={{ fontSize: '17px', fontWeight: '750', lineHeight: '1.4' }}>
+                        {loadingHintLevel ? "Đang tải gợi ý từ AI..." : activeHintText}
+
+                        {/* Citations in Hint */}
+                        {activeHintCitations.length > 0 && (
+                          <div className="citations-list" style={{ marginTop: '12px', borderTop: '1px dashed var(--line-strong)', paddingTop: '10px' }}>
+                            {activeHintCitations.map((c, cIdx) => (
+                              <div key={cIdx} className="citation-item" style={{ padding: '8px 12px', borderRadius: '8px', background: '#f8fafc', border: '1px solid var(--line-strong)' }}>
+                                <div className="citation-meta" style={{ display: 'flex', gap: '8px', marginBottom: '4px' }}>
+                                  <span className="citation-tag" style={{ background: 'var(--line-strong)', padding: '1px 6px', fontSize: '11px', borderRadius: '4px' }}>{c.chunk_id}</span>
+                                  {c.slide_file && (
+                                    <a href={`/data/vlearn-pack/slides/${c.slide_file}${c.slide_page ? `#page=${c.slide_page}` : ''}`} target="_blank" rel="noreferrer" className="citation-link" style={{ fontSize: '12px', color: 'var(--sky-deep)' }}>
+                                      📄 Slide (Trang {c.slide_page || 1})
+                                    </a>
+                                  )}
+                                </div>
+                                <blockquote className="citation-quote" style={{ fontSize: '12px', color: 'var(--muted)', margin: 0, paddingLeft: '6px', borderLeft: '2px solid var(--line-strong)', fontStyle: 'italic' }}>"{c.quote}"</blockquote>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+
+                        <div style={{ marginTop: '12px' }}>
+                          <button type="button" className="soundless-badge" style={{ minHeight: '32px', padding: '0 10px', fontSize: '12px', cursor: 'pointer' }} onClick={() => setCurrentHintLevelUsed(0)}>
+                            Chọn mức gợi ý khác
+                          </button>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
-              );
-            })}
-          </div>
+              )}
 
-          {/* Nút Skip */}
-          {!isAnswered && (
-            <div className="skip-btn-container" id="skipContainer">
-              <button
-                type="button"
-                className="skip-btn"
-                onClick={() => handleSelectAnswer('SKIP')}
-              >
-                Chưa biết? Bỏ qua câu này để xem đáp án
-              </button>
-            </div>
-          )}
+              {/* EXPLAIN / FEEDBACK Dialogue Card */}
+              {isAnswered && (
+                <div style={{ marginTop: '24px' }}>
+                  <div className="dialogue-card" data-side="left">
+                    <span className="speaker-name">AI Tutor (Giải thích)</span>
+                    <p className="ai-tutor-message" style={{
+                      margin: '0 0 10px 0',
+                      fontWeight: '900',
+                      fontSize: '16px',
+                      color: (currentAnswer && currentAnswer.isCorrect) ? "var(--leaf-strong)" : "var(--danger)"
+                    }}>
+                      {loadingExplain && "Đang phân tích đáp án..."}
+                      {!loadingExplain && currentAnswer && currentAnswer.isCorrect && `✓ Trả lời chính xác! Bạn được cộng ${currentAnswer.score} Elo.`}
+                      {!loadingExplain && currentAnswer && !currentAnswer.isCorrect && (
+                        currentAnswer.selectedAnswer === 'SKIP'
+                          ? "⚠ Bạn đã bỏ qua câu hỏi. Hãy xem giải thích bên dưới để ôn tập nhé!"
+                          : "✗ Chưa chính xác. Đừng nản lòng, hãy xem phần giải thích từ bài giảng nhé!"
+                      )}
+                    </p>
 
-          {/* Vùng Feedback giải thích từ AI */}
-          {isAnswered && (
-            <div className="feedback-container" style={{ display: 'block' }}>
-              <p className="ai-tutor-message" id="aiMessage" style={{
-                color: (currentAnswer && currentAnswer.isCorrect) ? "var(--friendly-green-dark)" : "var(--primary-color-dark)"
-              }}>
-                {loadingExplain && "Đang phân tích đáp án..."}
-                {!loadingExplain && currentAnswer && currentAnswer.isCorrect && `Tutor: “Tuyệt vời! Bạn đã trả lời chính xác và được cộng ${currentAnswer.score} Elo!”`}
-                {!loadingExplain && currentAnswer && !currentAnswer.isCorrect && (
-                  currentAnswer.selectedAnswer === 'SKIP'
-                    ? "Tutor: “Bạn đã bỏ qua câu hỏi. Hãy xem giải thích bên dưới để ôn tập nhé!”"
-                    : "Tutor: “Đáp án chưa chính xác. Đừng nản lòng, hãy xem phần giải thích từ bài giảng nhé!”"
-                )}
-              </p>
+                    {!loadingExplain && explainData && (
+                      <div className="dialogue-text" style={{ fontSize: '16px', fontWeight: '750', lineHeight: '1.4', color: 'var(--ink)' }}>
+                        <div style={{ marginBottom: '8px' }}>
+                          <strong>Đáp án đúng: {explainData.correct_answer}</strong>
+                        </div>
+                        <p style={{ margin: 0 }}>{explainData.explanation}</p>
 
-              {!loadingExplain && explainData && (
-                <div className={`explanation-box ${(!currentAnswer || !currentAnswer.isCorrect) ? 'wrong-mode' : ''}`} id="explanationBox">
-                  <div className="explain-section">
-                    <p className="explain-title green">✓ GIẢI THÍCH CHI TIẾT (Đáp án đúng: {explainData.correct_answer})</p>
-                    <p className="explain-content">{explainData.explanation}</p>
-                  </div>
-
-                  {/* Trích dẫn Citations */}
-                  {explainData.citations && explainData.citations.length > 0 && (
-                    <div className="explain-section citations-section">
-                      <p className="explain-title info" style={{ color: 'var(--primary-color-dark)' }}>📌 NGUỒN TÀI LIỆU TRÍCH DẪN (RAG)</p>
-                      <div className="citations-list">
-                        {explainData.citations.map((c, cIdx) => (
-                          <div key={cIdx} className="citation-item">
-                            <div className="citation-meta">
-                              <span className="citation-tag">{c.chunk_id}</span>
-                              {c.slide_file && (
-                                <a href={`/data/vlearn-pack/slides/${c.slide_file}${c.slide_page ? `#page=${c.slide_page}` : ''}`} target="_blank" rel="noreferrer" className="citation-link">
-                                  📄 Slide: {c.slide_file} (Trang {c.slide_page || 1})
-                                </a>
-                              )}
-                              {c.source_file && (
-                                <a href={`/data/vlearn-pack/transcript/${c.source_file}`} target="_blank" rel="noreferrer" className="citation-link">
-                                  📝 Transcript: {c.source_file}
-                                </a>
-                              )}
+                        {/* Citations in Explain */}
+                        {explainData.citations && explainData.citations.length > 0 && (
+                          <div className="explain-section citations-section" style={{ marginTop: '16px', borderTop: '1px dashed var(--line-strong)', paddingTop: '12px' }}>
+                            <p className="explain-title info" style={{ color: 'var(--sky-deep)', fontSize: '13px', fontWeight: '900', margin: '0 0 8px 0' }}>📌 NGUỒN TÀI LIỆU TRÍCH DẪN (RAG)</p>
+                            <div className="citations-list" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                              {explainData.citations.map((c, cIdx) => (
+                                <div key={cIdx} className="citation-item" style={{ padding: '8px 12px', borderRadius: '8px', background: '#f8fafc', border: '1px solid var(--line-strong)' }}>
+                                  <div className="citation-meta" style={{ display: 'flex', gap: '8px', marginBottom: '4px' }}>
+                                    <span className="citation-tag" style={{ background: 'var(--line-strong)', padding: '1px 6px', fontSize: '11px', borderRadius: '4px' }}>{c.chunk_id}</span>
+                                    {c.slide_file && (
+                                      <a href={`/data/vlearn-pack/slides/${c.slide_file}${c.slide_page ? `#page=${c.slide_page}` : ''}`} target="_blank" rel="noreferrer" className="citation-link" style={{ fontSize: '12px', color: 'var(--sky-deep)' }}>
+                                        📄 Slide (Trang {c.slide_page || 1})
+                                      </a>
+                                    )}
+                                    {c.source_file && (
+                                      <a href={`/data/vlearn-pack/transcript/${c.source_file}`} target="_blank" rel="noreferrer" className="citation-link" style={{ fontSize: '12px', color: 'var(--sky-deep)' }}>
+                                        📝 Transcript
+                                      </a>
+                                    )}
+                                  </div>
+                                  <blockquote className="citation-quote" style={{ fontSize: '12px', color: 'var(--muted)', margin: 0, paddingLeft: '6px', borderLeft: '2px solid var(--line-strong)', fontStyle: 'italic' }}>"{c.quote}"</blockquote>
+                                </div>
+                              ))}
                             </div>
-                            <blockquote className="citation-quote">"{c.quote}"</blockquote>
                           </div>
-                        ))}
+                        )}
                       </div>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
               )}
             </div>
-          )}
-        </div>
 
-        {/* Footer */}
-        <div className="bottom-bar">
-          <div className="hint-text">
-            <div className="hint-group">
-              <span className="hint-key">1</span>
-              <span className="hint-key">2</span>
-              <span className="hint-key">3</span>
-              <span className="hint-key">4</span>
-              để chọn
+            {/* Right Mascot Character (Learner Bear) */}
+            <div
+              className={`character-slot character-slot--right is-visible ${isAnswered ? 'is-listening' : ''}`}
+              id="rightCharacter"
+            >
+              <div className="speaker-chip">Học viên</div>
+              <div className="character-art character-art--falstaff">
+                <img className="static-mascot" src="/assets/duolingo-lottie/falstaff-avatar.svg" alt="" />
+              </div>
             </div>
-            <div className="hint-group">
-              <span className="hint-key">Enter</span>
-              để tiếp tục
-            </div>
+
+          </section>
+        </main>
+
+        {/* Footer Actionbar */}
+        <footer className="actionbar">
+          <div className="action-hint" id="actionHint">
+            <span className="keycap">1-4</span>
+            <span>để chọn nhanh</span>
+            <span className="keycap">Enter</span>
+            <span>để tiếp tục</span>
           </div>
-          <div className="footer-buttons">
+          <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
             <button
+              className="soundless-badge"
               type="button"
-              className="btn-outline"
-              id="askAiTutorBtn"
+              style={{ cursor: 'pointer' }}
+              onClick={() => {
+                setShowHintContent(prev => !prev);
+                if (!showHintContent) {
+                  setCurrentHintLevelUsed(0);
+                  setActiveHintText('');
+                  setActiveHintCitations([]);
+                }
+              }}
+            >
+              💡 Gợi ý (HINT)
+            </button>
+            <button
+              className="soundless-badge"
+              type="button"
+              style={{ cursor: 'pointer' }}
               onClick={() => setShowChatDrawer(true)}
             >
-              Hỏi AI Tutor
+              💬 Hỏi AI Tutor
             </button>
             {isAnswered && (
               <button
+                className="primary-button"
+                id="primaryAction"
                 type="button"
-                className="btn-action"
-                id="nextBtn"
-                style={{ display: 'block' }}
-                onClick={() => handleNext()}
+                onClick={handleNext}
               >
-                Tiếp tục &rarr;
+                {currentIdx === quizzes.length - 1 ? "Xem kết quả" : "Tiếp tục"}
+                <span aria-hidden="true">→</span>
               </button>
             )}
           </div>
-        </div>
+        </footer>
+
       </div>
 
-      {/* Chat Drawer (Socratic AI Tutor) */}
-      <div className={`chat-drawer ${showChatDrawer ? 'open' : ''}`} id="chatDrawer">
+      {/* Socratic Chat Drawer */}
+      <div className={`chat-drawer ${showChatDrawer ? 'open' : ''}`} id="chatDrawer" style={{ zIndex: 1000 }}>
         <div className="chat-drawer-header">
           <div className="chat-drawer-title">
             <span className="chat-status-indicator"></span>
-            <b>AI Tutor Socratic</b>
+            <b style={{ fontFamily: '"Arial Rounded MT Bold", "Nunito", sans-serif' }}>AI Tutor Socratic</b>
           </div>
           <button
             type="button"
@@ -559,13 +641,13 @@ export default function QuizActivePage() {
             Chào bạn! Mình là AI Tutor. Hãy đặt các câu hỏi về bài tập hiện tại, mình sẽ gợi mở, dẫn dắt để giúp bạn tự tìm câu trả lời mà không tiết lộ đáp án trực tiếp.
           </div>
           {chatHistory.map((msg, idx) => (
-            <div key={idx} className={`chat-message ${msg.role === 'user' ? 'user' : 'assistant'}`}>
-              <div className="chat-text">{msg.content}</div>
+            <div key={idx} className={`chat-message ${msg.role === 'user' ? 'user' : 'assistant'}`} style={{ borderRadius: '14px', fontFamily: '"Nunito", sans-serif' }}>
+              <div className="chat-text" style={{ fontWeight: '700' }}>{msg.content}</div>
 
               {msg.citations && msg.citations.length > 0 && (
                 <div className="citations-list" style={{ marginTop: '8px', borderTop: '1px dashed #cbd5e1', paddingTop: '6px' }}>
                   {msg.citations.map((c, cIdx) => (
-                    <div key={cIdx} className="citation-item" style={{ padding: '6px 10px', marginBottom: '4px', fontSize: '11px' }}>
+                    <div key={cIdx} className="citation-item" style={{ padding: '6px 10px', marginBottom: '4px', fontSize: '11px', background: '#f8fafc' }}>
                       <div className="citation-meta" style={{ gap: '4px', marginBottom: '2px' }}>
                         <span className="citation-tag" style={{ padding: '1px 4px', fontSize: '9px' }}>{c.chunk_id}</span>
                         {c.slide_file && (
@@ -613,31 +695,32 @@ export default function QuizActivePage() {
         </div>
       </div>
 
-      {/* Modal Kết Quả Lớn (Scoreboard) */}
+      {/* Scoreboard Modal (Duolingo Style Finale) */}
       {showScoreboard && (
         <div className="modal-overlay" id="scoreboardModal">
-          <div className="scoreboard-content">
-            <div className="scoreboard-icon">🏆</div>
-            <h2 className="scoreboard-title">Kết Quả Luyện Tập</h2>
-            <div className="scoreboard-stats">
-              <div className="stat-card">
-                <span className="stat-value">
+          <div className="scoreboard-content" style={{ maxWidth: '520px', width: '92%', borderRadius: '24px', border: '2px solid var(--line-strong)', boxShadow: '0 8px 0 var(--line-strong)' }}>
+            <div className="scoreboard-icon" style={{ fontSize: '64px' }}>🏆</div>
+            <h2 className="scoreboard-title" style={{ fontFamily: '"Arial Rounded MT Bold", sans-serif', fontSize: '28px', fontWeight: '950' }}>Kết Quả Luyện Tập</h2>
+            <div className="scoreboard-stats" style={{ display: 'flex', gap: '16px', margin: '20px 0' }}>
+              <div className="stat-card" style={{ border: '2px solid var(--line-strong)' }}>
+                <span className="stat-value" style={{ fontFamily: '"Arial Rounded MT Bold", sans-serif' }}>
                   {answersState.filter(ans => ans && ans.isCorrect).length} / {quizzes.length}
                 </span>
                 <span className="stat-label">Câu trả lời đúng</span>
               </div>
-              <div className="stat-card highlight">
-                <span className="stat-value">{eloScore}</span>
-                <span className="stat-label">Elo còn lại</span>
+              <div className="stat-card highlight" style={{ background: '#fef3c7', border: '2px solid #fde68a' }}>
+                <span className="stat-value" style={{ color: '#b45309', fontFamily: '"Arial Rounded MT Bold", sans-serif' }}>{eloScore}</span>
+                <span className="stat-label" style={{ color: '#d97706' }}>Elo đạt được</span>
               </div>
             </div>
-            <div className="scoreboard-evaluation" id="evaluationText">
+            <div className="scoreboard-evaluation" id="evaluationText" style={{ fontSize: '15px', fontWeight: '750', background: 'var(--sky-soft)', border: '2px solid var(--line-strong)', color: 'var(--ink)', borderRadius: '16px', padding: '16px', marginBottom: '24px' }}>
               {getEvaluationText()}
             </div>
-            <div className="scoreboard-buttons">
+            <div className="scoreboard-buttons" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <button
                 type="button"
-                className="btn-action"
+                className="primary-button"
+                style={{ width: '100%', minHeight: '48px' }}
                 onClick={() => {
                   setCurrentIdx(0);
                   setEloScore(100);
@@ -656,7 +739,8 @@ export default function QuizActivePage() {
               </button>
               <button
                 type="button"
-                className="btn-outline"
+                className="soundless-badge"
+                style={{ width: '100%', minHeight: '48px', justifyContent: 'center', cursor: 'pointer' }}
                 onClick={() => navigate('/')}
               >
                 Quay lại Khóa học
