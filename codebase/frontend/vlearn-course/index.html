@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Cổng khóa học VLearn cho COMP2010" />
+    <title>VLearn · COMP2010</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23102f5a' d='m6 7 10 10 10-10v12L16 29 6 19z'/%3E%3Cpath fill='%23ed3341' d='m6 7 10 10 10-10v5L16 22 6 12z'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="nav-shell">
+        <a class="brand" href="#top" aria-label="VLearn">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i></span>
+          <span><b>V</b>Learn</span>
+        </a>
+        <nav class="main-nav" aria-label="Điều hướng chính">
+          <a href="#top">⌂&nbsp; Trang chủ</a>
+          <a class="is-active" href="#course">▣&nbsp; Khóa học</a>
+          <a href="#practice">⌘&nbsp; Luyện tập <small>SẮP RA MẮT</small></a>
+          <a href="#notebook">▤&nbsp; Sổ tay học tập</a>
+        </nav>
+        <div class="header-tools" aria-label="Công cụ tài khoản">
+          <button class="code-lab" type="button">↗&nbsp; Mở Codelabs</button>
+          <button class="icon-button" type="button" aria-label="Ngôn ngữ">VI</button>
+          <button class="icon-button" type="button" aria-label="Đổi giao diện">◔</button>
+          <button class="icon-button" type="button" aria-label="Thông báo">♧</button>
+          <button class="account" type="button" aria-label="Tài khoản">2</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="course-summary" id="course">
+        <div class="content-width course-summary__content">
+          <div>
+            <p class="course-label">VLEARN · VINUNI AI THỰC CHIẾN</p>
+            <h1>COMP2010 - Khoá 3 + 4 Phase 1</h1>
+            <p class="learner-count">1074 học viên cùng lớp</p>
+          </div>
+          <div class="reading-progress" aria-label="Tiến độ đọc">
+            <div><span>✓</span> Đã đọc 0/7 ngày <i></i> <strong>0%</strong></div>
+            <button type="button">Bắt đầu đọc</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="course-days" aria-label="Nội dung khóa học">
+        <div class="content-width" id="daysList"></div>
+      </section>
+    </main>
+
+    <template id="dayTemplate">
+      <article class="day-card">
+        <button class="day-heading" type="button" aria-expanded="false">
+          <span class="day-number"><small>DAY</small><strong></strong></span>
+          <span class="day-title"><b></b><small></small></span>
+          <span class="chevron" aria-hidden="true">⌄</span>
+        </button>
+        <div class="day-details" hidden></div>
+      </article>
+    </template>
+
+    <div class="sr-only" id="announcer" aria-live="polite"></div>
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Warm-up tương tác: Bạn đang dùng AI mỗi ngày — nhưng thực sự bên trong nó đang làm gì?"
+    />
+    <title>AI Warm-up</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%2323343b'/%3E%3Ccircle cx='20' cy='32' r='5' fill='white'/%3E%3Ccircle cx='32' cy='32' r='5' fill='white'/%3E%3Ccircle cx='44' cy='32' r='5' fill='white'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar" aria-label="Tiến độ warm-up">
+        <div class="brand" aria-label="AI Warm-up">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span>AI Warm-up</span>
+        </div>
+
+        <div class="progress-wrap">
+          <div class="progress-track" aria-hidden="true">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <span class="progress-label" id="progressLabel">Sẵn sàng</span>
+        </div>
+
+        <div class="header-actions">
+          <a class="soundless-badge soundless-badge--course" id="courseBackLink" href="../vlearn-course/index.html">
+            <span aria-hidden="true">←</span>
+            Về khóa học
+          </a>
+          <button class="soundless-badge soundless-badge--exit" id="exitButton" type="button" hidden>
+            <span aria-hidden="true">×</span>
+            Thoát
+          </button>
+          <button class="soundless-badge" id="fullscreenButton" type="button" aria-label="Bật chế độ trình chiếu toàn màn">
+            <span aria-hidden="true">⛶</span>
+            Toàn màn
+          </button>
+          <button class="soundless-badge" id="replayButton" type="button" aria-label="Phát lại đoạn thoại">
+            <span aria-hidden="true">↻</span>
+            Phát lại
+          </button>
+        </div>
+      </header>
+
+      <main class="screen" id="screen">
+        <section class="stage" aria-label="Warm-up AI">
+          <div class="character-slot character-slot--left" id="leftCharacter" aria-hidden="true">
+            <div class="speaker-chip" id="leftSpeakerChip">Minh đang nói</div>
+            <div class="character-art character-art--bea">
+              <div class="lottie-crop">
+                <div class="lottie-source" id="beaLottie"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="scene-content" id="sceneContent"></div>
+
+          <div class="character-slot character-slot--right" id="rightCharacter" aria-hidden="true">
+            <div class="speaker-chip" id="rightSpeakerChip">Nam đang nói</div>
+            <div class="character-art character-art--falstaff">
+              <img class="static-mascot" src="assets/duolingo-lottie/falstaff-avatar.svg" alt="" />
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="actionbar">
+        <div class="action-hint" id="actionHint">
+          <span class="keycap">Space</span>
+          <span>để tiếp lời</span>
+        </div>
+        <button class="primary-button" id="primaryAction" type="button">
+          Bắt đầu
+          <span aria-hidden="true">→</span>
+        </button>
+      </footer>
+    </div>
+
+    <dialog class="exit-dialog" id="exitDialog" aria-labelledby="exitDialogTitle">
+      <form method="dialog">
+        <div class="exit-dialog-icon" aria-hidden="true">!</div>
+        <h2 id="exitDialogTitle">Thoát khỏi warm-up?</h2>
+        <p id="exitDialogMessage">Tiến độ của lượt làm hiện tại sẽ bị xoá. Bạn có thể bắt đầu lại từ sảnh chờ.</p>
+        <div class="exit-dialog-actions">
+          <button class="dialog-button dialog-button--secondary" id="cancelExitButton" value="cancel">Tiếp tục làm bài</button>
+          <button class="dialog-button dialog-button--danger" id="confirmExitButton" value="confirm">Thoát về sảnh chờ</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div class="sr-only" id="announcer" aria-live="polite"></div>
+
+    <script src="assets/lottie.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
