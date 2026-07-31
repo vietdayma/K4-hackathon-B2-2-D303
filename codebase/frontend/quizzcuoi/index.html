@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khảo Sát Mức Độ Tiếp Thu</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Nhúng file CSS dùng chung -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Mảng màu trang trí Background -->
+    <div class="bg-blob-1"></div>
+    <div class="bg-blob-2"></div>
+
+    <div class="modal-container">
+        
+        <!-- Header -->
+        <div class="top-bar">
+            <button class="btn-icon close-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <div class="badge-step">1 / 5</div>
+            <div style="width: 44px;"></div>
+        </div>
+
+        <h2 class="title">Mức độ hiểu bài của bạn trong buổi học như thế nào?</h2>
+        <p class="subtitle">Đánh giá của bạn giúp hệ thống điều chỉnh test phù hợp hơn.</p>
+
+        <!-- Đánh giá sao -->
+        <div class="rating-section">
+            <p class="rating-question">Chạm vào sao để đánh giá</p>
+            <div class="stars-container">
+                <svg class="star-rating" viewBox="0 0 24 24" fill="none" stroke="var(--star-empty)" stroke-width="1.5" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg class="star-rating" viewBox="0 0 24 24" fill="none" stroke="var(--star-empty)" stroke-width="1.5" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg class="star-rating" viewBox="0 0 24 24" fill="none" stroke="var(--star-empty)" stroke-width="1.5" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg class="star-rating" viewBox="0 0 24 24" fill="none" stroke="var(--star-empty)" stroke-width="1.5" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg class="star-rating" viewBox="0 0 24 24" fill="none" stroke="var(--star-empty)" stroke-width="1.5" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            </div>
+            
+            <div class="rating-label-container">
+                <p class="rating-label hide"></p>
+            </div>
+        </div>
+
+        <!-- Textarea nhận xét -->
+        <textarea class="feedback-input" placeholder="Bạn chưa nắm vững nội dung nào?"></textarea>
+        
+        <div class="suggestions-container">
+            <button class="suggestion-chip">Kiến trúc GNN</button>
+            <button class="suggestion-chip">Đồ thị tri thức</button>
+            <button class="suggestion-chip">Tối ưu hóa Prompt</button>
+            <button class="suggestion-chip">Pipeline Airflow</button>
+        </div>
+
+        <!-- Thanh điều hướng dưới cùng -->
+        <div class="bottom-bar">
+            <div class="hint-text">
+                <span class="hint-key">Enter</span> để tiếp tục
+            </div>
+            <button class="submit-btn" onclick="window.location.href='cauhoi.html'">
+                Tiếp tục &rarr;
+            </button>
+        </div>
+        
+    </div>
+
+    <!-- Nhúng file JavaScript dùng chung -->
+    <script src="app.js"></script>
+</body>
+</html>

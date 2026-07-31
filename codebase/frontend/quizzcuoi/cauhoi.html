@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giao Diện Trắc Nghiệm AI</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Nhúng file CSS dùng chung -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Mảng màu trang trí Background -->
+    <div class="bg-blob-1"></div>
+    <div class="bg-blob-2"></div>
+
+    <div class="quiz-modal quiz-container" id="quizApp">
+        
+        <!-- Progress Bar -->
+        <div class="progress-bar-container">
+            <div class="progress-segment" id="seg-1"></div>
+            <div class="progress-segment"></div>
+            <div class="progress-segment"></div>
+            <div class="progress-segment"></div>
+            <div class="progress-segment"></div>
+            <div class="progress-segment"></div>
+            <div class="progress-segment"></div>
+            <div class="progress-segment"></div>
+            <div class="progress-segment"></div>
+            <div class="progress-segment"></div>
+        </div>
+
+        <!-- Header -->
+        <div class="quiz-header">
+            <div class="header-left">
+                <button class="btn-icon" onclick="window.location.href='index.html'">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <div class="badge-step">Câu 1</div>
+            </div>
+        </div>
+
+        <!-- Body -->
+        <div class="quiz-body" id="quizBody">
+            <h2 class="question-text">Kiến trúc Transformer giới thiệu cơ chế nào giúp xử lý song song thay thế RNN?</h2>
+            
+            <!-- HINT Dropdown -->
+            <div class="hint-wrapper">
+                <button class="hint-btn" id="hintToggleBtn">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 12 3a4.65 4.65 0 0 0-4.5 4.5c0 .85.28 1.5.83 2.15.76.76 1.23 1.52 1.41 2.5"></path></svg>
+                    HINT
+                </button>
+                <div class="hint-content" id="hintContent">
+                    <div class="hint-inner">
+                        Cơ chế này có tên tiếng Anh bắt đầu bằng chữ "Self", giúp các từ trong câu tự liên kết trực tiếp với nhau.
+                    </div>
+                </div>
+            </div>
+
+            <div class="options-list">
+                <div class="option-item" data-id="A">
+                    <div class="option-letter">A</div>
+                    <div class="option-text">Cơ chế Convolutional Pooling.</div>
+                    <div class="option-icon icon-correct"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                    <div class="option-icon icon-wrong"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></div>
+                </div>
+                <div class="option-item" data-id="B">
+                    <div class="option-letter">B</div>
+                    <div class="option-text">Cơ chế Recurrent Gate.</div>
+                    <div class="option-icon icon-correct"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                    <div class="option-icon icon-wrong"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></div>
+                </div>
+                <div class="option-item" data-id="C">
+                    <div class="option-letter">C</div>
+                    <div class="option-text">Cơ chế Self Attention.</div>
+                    <div class="option-icon icon-correct"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                    <div class="option-icon icon-wrong"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></div>
+                </div>
+                <div class="option-item" data-id="D">
+                    <div class="option-letter">D</div>
+                    <div class="option-text">Cơ chế Feed Forward.</div>
+                    <div class="option-icon icon-correct"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                    <div class="option-icon icon-wrong"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></div>
+                </div>
+            </div>
+
+            <div class="skip-btn-container" id="skipContainer">
+                <button class="skip-btn">Chưa biết? Bỏ qua câu này để xem đáp án</button>
+            </div>
+
+            <!-- Vùng Feedback -->
+            <div class="feedback-container" id="feedbackContainer">
+                <p class="ai-tutor-message" id="aiMessage"></p>
+                
+                <div class="explanation-box" id="explanationBox">
+                    <div class="explain-section">
+                        <p class="explain-title green">✓ TẠI SAO ĐÚNG (C)</p>
+                        <p class="explain-content">Cơ chế Self Attention cho phép các token trong chuỗi tương tác đồng thời với nhau, loại bỏ tính tuần tự của RNN/LSTM và tăng tốc độ tính toán song song.</p>
+                    </div>
+                    <div class="explain-section">
+                        <p class="explain-title red">✕ TẠI SAO PHƯƠNG ÁN KHÁC CHƯA TỐI ƯU</p>
+                        <p class="explain-content">Các phương án khác không mô tả chính xác bản chất hoặc cơ chế hoạt động của khái niệm này.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="bottom-bar">
+            <div class="hint-text">
+                <div class="hint-group">
+                    <span class="hint-key">1</span>
+                    <span class="hint-key">2</span>
+                    <span class="hint-key">3</span>
+                    <span class="hint-key">4</span> 
+                    để chọn
+                </div>
+                <div class="hint-group">
+                    <span class="hint-key">Enter</span> 
+                    để tiếp tục
+                </div>
+            </div>
+            <div class="footer-buttons">
+                <button class="btn-outline">Hỏi AI Tutor</button>
+                <button class="btn-action" id="nextBtn">Tiếp tục &rarr;</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Nhúng file JavaScript chung -->
+    <script src="app.js"></script>
+</body>
+</html>
