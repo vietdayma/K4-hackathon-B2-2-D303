@@ -1,28 +1,16 @@
-# Frontend
+# React + Vite
 
-Mỗi giao diện độc lập nằm trong một thư mục con, dùng tên kebab-case. Hiện có:
+This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 
-- [`warmup-ai/`](./warmup-ai/) — warm-up tương tác cho Bài 1 về AI.
-- [`vlearn-course/`](./vlearn-course/) — cổng khóa học VLearn tĩnh, dẫn vào warm-up và tài liệu theo Day.
-- [`quizzcuoi/`](./quizzcuoi/) — tự đánh giá và quiz củng cố sau Bài 1, do Giang khởi tạo.
+Currently, two official plugins are available:
 
-Trước khi sửa hoặc thêm giao diện, đọc [`AGENTS.md`](./AGENTS.md). File này là quy ước chung cho người và coding agent.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## Chạy toàn bộ frontend
+## React Compiler
 
-Chạy một server duy nhất từ thư mục `codebase/frontend`:
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-```bash
-cd codebase/frontend
-python3 -m http.server 4176
-```
+## Expanding the Oxlint configuration
 
-Sau đó các route chuẩn là:
-
-- VLearn: `http://localhost:4176/vlearn-course/`
-- Warm-up: `http://localhost:4176/warmup-ai/`
-- Kiểm tra sau bài: `http://localhost:4176/quiz/`
-
-Các màn hình liên kết với nhau bằng đường dẫn tương đối. Không hard-code
-`localhost`, port hoặc domain trong source frontend; nhờ vậy cùng một luồng hoạt
-động ở local và khi deploy static.
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
