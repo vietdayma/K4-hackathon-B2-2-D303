@@ -1,0 +1,1523 @@
+{
+    "metadata": {
+      "course": "AI Thực Chiến - Day 1 Foundation",
+      "total_questions": 100,
+      "version": "2.0_2026",
+      "distribution": {
+        "level_1": 20,
+        "level_2": 20,
+        "level_3": 20,
+        "level_4": 20,
+        "level_5": 20
+      },
+      "levels": [
+        {"level": 1, "description": "Nhận biết (Recall)"},
+        {"level": 2, "description": "Thông hiểu (Understand)"},
+        {"level": 3, "description": "Vận dụng (Apply)"},
+        {"level": 4, "description": "Phân tích (Analyze)"},
+        {"level": 5, "description": "Đánh giá (Evaluate)"}
+      ]
+    },
+    "quiz_bank": [
+      {
+        "id": "Q001",
+        "topic": "Lịch sử & Concept AI",
+        "level": 1,
+        "level_description": "Nhận biết",
+        "question": "Thuật ngữ 'AI Tạo sinh' (Generative AI) nằm ở vị trí nào trong cấu trúc phân cấp công nghệ AI?",
+        "options": [
+          "A. Là tập cha chứa Machine Learning và Deep Learning",
+          "B. Là tập con của Deep Learning và Machine Learning",
+          "C. Là một khái niệm hoàn toàn độc lập với Machine Learning",
+          "D. Là tên gọi khác của Symbolic AI"
+        ],
+        "answer": "B",
+        "explanation": "Cấu trúc vòng tròn bao phủ: AI -> Machine Learning -> Deep Learning -> Generative AI [T04-015]."
+      },
+      {
+        "id": "Q002",
+        "topic": "Lịch sử & Concept AI",
+        "level": 1,
+        "level_description": "Nhận biết",
+        "question": "Năm 1956 được coi là mốc thời gian quan trọng nào của ngành AI?",
+        "options": [
+          "A. Năm phát minh ra ChatGPT",
+          "B. Năm khai sinh chính thức ngành AI tại hội thảo mùa hè",
+          "C. Năm ra đời thuật toán Transformer",
+          "D. Năm phát minh ra chip GPU đầu tiên"
+        ],
+        "answer": "B",
+        "explanation": "Các nhà nghiên cứu tổ chức hội thảo mùa hè năm 1956, được coi là năm khai sinh ngành AI [T04-016, T04-024]."
+      },
+      {
+        "id": "Q003",
+        "topic": "Lịch sử & Concept AI",
+        "level": 1,
+        "level_description": "Nhận biết",
+        "question": "Thuật toán Turing Test do Alan Turing đề xuất năm 1950 dùng để kiểm tra điều gì?",
+        "options": [
+          "A. Tốc độ xử lý của vi máy tính",
+          "B. Khả năng giao tiếp khiến người thử nghiệm không phân biệt được đâu là máy, đâu là người",
+          "C. Dung lượng bộ nhớ lưu trữ",
+          "D. Khả năng tự động mã hóa văn bản"
+        ],
+        "answer": "B",
+        "explanation": "Turing Test đánh giá nếu người thử nghiệm không đoán được bên nào là máy, bên nào là người thì máy vượt qua [T04-018]."
+      },
+      {
+        "id": "Q004",
+        "topic": "Lịch sử & Concept AI",
+        "level": 1,
+        "level_description": "Nhận biết",
+        "question": "Mô hình AI thế hệ đầu tiên dạy máy bằng luật được gọi tên là gì?",
+        "options": [
+          "A. Deep Learning",
+          "B. Symbolic AI",
+          "C. Generative AI",
+          "D. Transformer"
+        ],
+        "answer": "B",
+        "explanation": "Mô hình AI dạy máy bằng cách viết ra các luật được gọi là Symbolic AI [T04-024]."
+      },
+      {
+        "id": "Q005",
+        "topic": "Lịch sử & Concept AI",
+        "level": 1,
+        "level_description": "Nhận biết",
+        "question": "Mạng Neuron đơn giản đầu tiên đặt nền móng cho Deep Learning có tên là gì?",
+        "options": [
+          "A. Perceptron",
+          "B. RNN",
+          "C. LSTM",
+          "D. Agent"
+        ],
+        "answer": "A",
+        "explanation": "Perceptron là cách tiếp cận dùng ví dụ thay cho luật, đặt nền móng cho Deep Learning [T04-026]."
+      },
+      {
+        "id": "Q006",
+        "topic": "Cơ chế LLM & Token",
+        "level": 1,
+        "level_description": "Nhận biết",
+        "question": "Trong các mô hình ngôn ngữ lớn (LLM), 'Token' được hiểu là gì?",
+        "options": [
+          "A. Một ký tự chữ cái duy nhất",
+          "B. Đơn vị ngôn ngữ tính toán của máy (đã bẻ nhỏ từ từ ngữ)",
+          "C. Mã xác thực người dùng API",
+          "D. Một trang tài liệu"
+        ],
+        "answer": "B",
+        "explanation": "Token là đơn vị tính toán, là ngôn ngữ của máy được chẻ nhỏ từ từ ngữ [T04-049]."
+      },
+      {
+        "id": "Q007",
+        "topic": "Cơ chế LLM & Token",
+        "level": 1,
+        "level_description": "Nhận biết",
+        "question": "Tỷ lệ quy đổi nhẩm nhanh phổ biến cho tiếng Anh giữa ký tự và Token là bao nhiêu?",
+        "options": [
+          "A. 1 ký tự = 1 token",
+          "B. Khoảng 4 ký tự tiếng Anh = 1 token",
+          "C. 10 ký tự tiếng Anh = 1 token",
+          "D. 1 từ = 10 token"
+        ],
+        "answer": "B",
+        "explanation": "Quy tắc nhẩm nhanh: khoảng 4 ký tự tiếng Anh sẽ là 1 token [T04-050]."
+      },
+      {
+        "id": "Q008",
+        "topic": "Cơ chế LLM & Token",
+        "level": 1,
+        "level_description": "Nhận biết",
+        "question": "Bản chất thao tác sinh văn bản Autoregressive của LLM gồm 3 bước lặp lại nào?",
+        "options": [
+          "A. Read -> Dịch -> In ra",
+          "B. Predict (dự đoán) -> Append (nối vào chuỗi) -> Rerun (chạy lại)",
+          "C. Search -> Summarize -> Export",
+          "D. Input -> Compress -> Output"
+        ],
+        "answer": "B",
+        "explanation": "Vòng lặp sinh văn bản của LLM: Predict -> Append -> Rerun [T04-047, T04-096]."
+      },
+      {
+        "id": "Q009",
+        "topic": "Kiến trúc Transformer",
+        "level": 1,
+        "level_description": "Nhận biết",
+        "question": "Bài báo khoa học nền tảng tạo ra kiến trúc Transformer có tên là gì?",
+        "options": [
+          "A. Deep Learning in Practice",
+          "B. Attention Is All You Need",
+          "C. Master of Go",
+          "D. Symbolic AI Handbook"
+        ],
+        "answer": "B",
+        "explanation": "Bài báo nổi tiếng năm 2017 của Google có tên 'Attention Is All You Need' [T04-038]."
+      },
+      {
+        "id": "Q010",
+        "topic": "Kiến trúc Transformer",
+        "level": 1,
+        "level_description": "Nhận biết",
+        "question": "Kiến trúc Transformer do đội ngũ nghiên cứu của công ty nào phát minh năm 2017?",
+        "options": [
+          "A. OpenAI",
+          "B. Google",
+          "C. Meta",
+          "D. Microsoft"
+        ],
+        "answer": "B",
+        "explanation": "Bài báo 'Attention Is All You Need' xuất bản năm 2017 do team của Google thực hiện [T04-038]."
+      },
+      {
+        "id": "Q011",
+        "topic": "Thị trường & Xu hướng AI",
+        "level": 1,
+        "level_description": "Nhận biết",
+        "question": "Ứng dụng ChatGPT chính thức ra đời vào thời gian nào tạo nên cú nổ GenAI toàn cầu?",
+        "options": [
+          "A. Năm 2012",
+          "B. Cuối năm 2022",
+          "C. Năm 2017",
+          "D. Năm 2006"
+        ],
+        "answer": "B",
+        "explanation": "Đến năm 2022 thì ChatGPT ra đời tạo nên sự thay đổi liên tục [T04-041]."
+      },
+      {
+        "id": "Q012",
+        "topic": "Thị trường & Xu hướng AI",
+        "level": 1,
+        "level_description": "Nhận biết",
+        "question": "Trung bình chi phí tính toán cho cùng một mức năng lực mô hình AI giảm khoảng bao nhiêu lần mỗi năm?",
+        "options": [
+          "A. Tăng 2 lần",
+          "B. Giảm xấp xỉ 10 lần mỗi năm",
+          "C. Giảm 100 lần",
+          "D. Không đổi"
+        ],
+        "answer": "B",
+        "explanation": "Con số tính trung bình chi phí giảm khoảng 10 lần mỗi năm [T04-076, T04-096]."
+      },
+      {
+        "id": "Q013",
+        "topic": "Lịch sử & Concept AI",
+        "level": 1,
+        "level_description": "Nhận biết",
+        "question": "Sự kiện năm 2016 gây sốc thế giới khi AI đánh bại kỳ thủ cờ vây Lee Sedol thuộc về mô hình nào?",
+        "options": [
+          "A. AlphaGo",
+          "B. DeepBlue",
+          "C. ChatGPT",
+          "D. Watson"
+        ],
+        "answer": "A",
+        "explanation": "AlphaGo của Google DeepMind đánh bại Lee Sedol với tỷ số 4-1 năm 2016 [T04-035]."
+      },
+      {
+        "id": "Q014",
+        "topic": "Lịch sử & Concept AI",
+        "level": 1,
+        "level_description": "Nhận biết",
+        "question": "Bộ dữ liệu dán nhãn hình ảnh mở nổi tiếng tạo cú hích lớn cho Deep Learning năm 2009-2012 là gì?",
+        "options": [
+          "A. ImageNet",
+          "B. COCO Data",
+          "C. MNIST",
+          "D. Wikipedia Dataset"
+        ],
+        "answer": "A",
+        "explanation": "Bộ dữ liệu ImageNet do bà Fei-Fei Li và cộng sự gán nhãn thúc đẩy ngành Deep Learning [T04-031]."
+      },
+      {
+        "id": "Q015",
+        "topic": "Tham số & Huấn luyện",
+        "level": 1,
+        "level_description": "Nhận biết",
+        "question": "Viết tắt RLHF trong huấn luyện mô hình ngôn ngữ lớn có nghĩa là gì?",
+        "options": [
+          "A. Reinforcement Learning from Human Feedback",
+          "B. Real Language Human Format",
+          "C. Re-Learning High Frequency",
+          "D. Random Logic Human Function"
+        ],
+        "answer": "A",
+        "explanation": "RLHF nghĩa là Reinforcement Learning from Human Feedback [T04-059]."
+      },
+      {
+        "id": "Q016",
+        "topic": "API & Hyperparameters",
+        "level": 1,
+        "level_description": "Nhận biết",
+        "question": "Lớp lệnh đầu tiên quy định vai trò tổng quát của AI khi gọi API được gọi là gì?",
+        "options": [
+          "A. User Prompt",
+          "B. System Prompt",
+          "C. Assistant Response",
+          "D. Function Call"
+        ],
+        "answer": "B",
+        "explanation": "System prompt là lớp gần như có hiệu lực tuyệt đối, nằm đầu tiên trong prompt truyền vào [T04-089]."
+      },
+      {
+        "id": "Q017",
+        "topic": "API & Hyperparameters",
+        "level": 1,
+        "level_description": "Nhận biết",
+        "question": "Trong phản hồi API của một LLM, mục nào cung cấp thông tin về số lượng token đã sử dụng?",
+        "options": [
+          "A. choices",
+          "B. usage",
+          "C. model",
+          "D. id"
+        ],
+        "answer": "B",
+        "explanation": "Muốn biết gọi API tốn bao nhiêu token thì đọc mục usage trong response [T04-089, T04-096]."
+      },
+      {
+        "id": "Q018",
+        "topic": "Kiến trúc LLM Đương đại",
+        "level": 1,
+        "level_description": "Nhận biết",
+        "question": "Các mô hình như Qwen, DeepSeek thuộc nhóm mô hình nào trong bức tranh công nghệ?",
+        "options": [
+          "A. Mô hình đóng độc quyền Mỹ",
+          "B. Mô hình mã nguồn mở (Open Weight) nổi bật từ Trung Quốc",
+          "C. Mô hình AI cổ điển dạy bằng luật",
+          "D. Phần mềm ứng dụng không dùng LLM"
+        ],
+        "answer": "B",
+        "explanation": "Làn sóng mã nguồn mở màu cam đến từ các mô hình Trung Quốc như DeepSeek, Qwen [T04-076, T04-080]."
+      },
+      {
+        "id": "Q019",
+        "topic": "Tham số & Huấn luyện",
+        "level": 1,
+        "level_description": "Nhận biết",
+        "question": "Công ty startup nổi tiếng toàn cầu về dịch vụ gán nhãn dữ liệu do Alexandr Wang sáng lập là gì?",
+        "options": [
+          "A. Scale AI",
+          "B. OpenAI",
+          "C. Anthropic",
+          "D. Hugging Face"
+        ],
+        "answer": "A",
+        "explanation": "Scale AI là công ty gán nhãn dữ liệu biến Alexandr Wang thành tỷ phú trẻ [T04-060]."
+      },
+      {
+        "id": "Q020",
+        "topic": "Ứng dụng & Kỹ nghệ AI Agent",
+        "level": 1,
+        "level_description": "Nhận biết",
+        "question": "Lớp lan can an toàn dùng để ngăn chặn AI trả lời các câu hỏi vi phạm được gọi là gì?",
+        "options": [
+          "A. Guardrail",
+          "B. Memory",
+          "C. Tool",
+          "D. Context Rot"
+        ],
+        "answer": "A",
+        "explanation": "Guardrail là các lan can an toàn ngăn chặn hoặc từ chối trả lời các câu không phù hợp [T04-074]."
+      },
+      {
+        "id": "Q021",
+        "topic": "Lịch sử & Concept AI",
+        "level": 2,
+        "level_description": "Thông hiểu",
+        "question": "Lý do cốt lõi khiến Symbolic AI (dạy máy bằng luật) bị chạm trần và dẫn tới Mùa đông AI lần 1 là gì?",
+        "options": [
+          "A. Máy tính không có đủ nguồn điện",
+          "B. Xảy ra bùng nổ tổ hợp, con người không thể liệt kê hết tất cả các luật của thế giới phức tạp",
+          "C. Không có nhà đầu tư tài trợ",
+          "D. Các nhà khoa học đình công"
+        ],
+        "answer": "B",
+        "explanation": "Symbolic AI chạm trần vì thế giới quá nhiều bối cảnh, liệt kê bước làm bị bùng nổ tổ hợp [T04-025]."
+      },
+      {
+        "id": "Q022",
+        "topic": "Lịch sử & Concept AI",
+        "level": 2,
+        "level_description": "Thông hiểu",
+        "question": "Nguyên nhân chính dẫn đến 'Mùa đông AI thứ hai' (1980 - 1990) của Hệ chuyên gia (Expert System) là gì?",
+        "options": [
+          "A. Internet chưa xuất hiện",
+          "B. Tri thức phải nhập tay và luật phải sửa liên tục khi bối cảnh thay đổi, tạo ra nợ kỹ thuật lớn",
+          "C. AI đã quá thông minh không cần phát triển thêm",
+          "D. Thiếu chip nhớ RAM"
+        ],
+        "answer": "B",
+        "explanation": "Hệ chuyên gia sụp sụp vì ngoại lệ liên tục sinh ra, sửa một luật làm hỏng toàn bộ chuỗi phía sau [T04-029]."
+      },
+      {
+        "id": "Q023",
+        "topic": "Lịch sử & Concept AI",
+        "level": 2,
+        "level_description": "Thông hiểu",
+        "question": "Tại sao làn sóng AI bùng nổ hiện nay lại đạt thành công vượt trội so với các nghiên cứu lý thuyết trong quá khứ?",
+        "options": [
+          "A. Vì lý thuyết AI mới được phát minh gần đây",
+          "B. Hội tụ đủ 3 yếu tố: Thuật toán mô hình, Dữ liệu khổng lồ từ Internet và Phần cứng GPU phát triển",
+          "C. Con người viết luật thông minh hơn",
+          "D. Các mô hình không còn cần dữ liệu nữa"
+        ],
+        "answer": "B",
+        "explanation": "Làn sóng AI bùng nổ nhờ hội tụ đủ dữ liệu internet, máy móc phần cứng GPU và mô hình [T04-022, T04-033]."
+      },
+      {
+        "id": "Q024",
+        "topic": "Cơ chế LLM & Token",
+        "level": 2,
+        "level_description": "Thông hiểu",
+        "question": "Hiện tượng ảo giác (Hallucination) ở LLM xuất phát từ nguyên nhân bản chất nào?",
+        "options": [
+          "A. Mô hình bị virus vi tính",
+          "B. Mô hình chỉ đang dự đoán và nối token tiếp theo có xác suất phù hợp chứ không thực sự biết tri thức đúng hay sai",
+          "C. Kết nối WiFi bị chập chờn",
+          "D. Do máy tính bị quá nhiệt"
+        ],
+        "answer": "B",
+        "explanation": "Ảo giác xảy ra vì LLM chỉ đang nối các từ theo xác suất cho thuận mắt chứ không biết đúng sai [T04-048]."
+      },
+      {
+        "id": "Q025",
+        "topic": "Cơ chế LLM & Token",
+        "level": 2,
+        "level_description": "Thông hiểu",
+        "question": "Tại sao cùng một nội dung, văn bản Tiếng Việt thường tiêu tốn nhiều token hơn Tiếng Anh?",
+        "options": [
+          "A. Tiếng Việt có từ ghép dài hơn",
+          "B. Tiếng Việt chứa thanh sắc/dấu khiến bộ Tokenizer bẻ nhỏ từ thành nhiều đơn vị hơn",
+          "C. Do các hãng AI thu phí đắt hơn với châu Á",
+          "D. Do chữ viết Tiếng Việt dài hơn"
+        ],
+        "answer": "B",
+        "explanation": "Tiếng Việt chứa dấu và thanh sắc làm bộ Tokenizer phải chẻ thành nhiều đơn vị hơn [T04-049, T04-096]."
+      },
+      {
+        "id": "Q026",
+        "topic": "Cơ chế LLM & Token",
+        "level": 2,
+        "level_description": "Thông hiểu",
+        "question": "Cửa sổ ngữ cảnh (Context Window) của LLM thường được ví với hình ảnh thực tế nào?",
+        "options": [
+          "A. Bàn làm việc - trong một thời điểm có thể bày ra tối đa bấy nhiêu thông tin để xử lý",
+          "B. Thư viện sách - lưu trữ vĩnh viễn mọi thứ",
+          "C. Đĩa cứng lưu trữ - không bao giờ mất đi",
+          "D. Màn hình hiển thị hình ảnh"
+        ],
+        "answer": "A",
+        "explanation": "Context Window ví như cái bàn làm việc, bày ra bao nhiêu thì xử lý được bấy nhiêu [T04-051]."
+      },
+      {
+        "id": "Q027",
+        "topic": "Kiến trúc Transformer",
+        "level": 2,
+        "level_description": "Thông hiểu",
+        "question": "Điểm vượt trội của kiến trúc Transformer (2017) so với mạng RNN/LSTM trước đó là gì?",
+        "options": [
+          "A. Đọc và xử lý nối tiếp từng từ một từ trái sang phải",
+          "B. Xử lý song song cả câu, dùng cơ chế Attention để nhận diện mối liên kết giữa các từ quan trọng",
+          "C. Loại bỏ hoàn toàn việc gán nhãn",
+          "D. Giảm dung lượng mô hình xuống 0MB"
+        ],
+        "answer": "B",
+        "explanation": "Transformer đọc cả cụm, xử lý song song và dùng Attention kết nối các từ quan trọng [T04-040, T04-094]."
+      },
+      {
+        "id": "Q028",
+        "topic": "Tham số & Huấn luyện",
+        "level": 2,
+        "level_description": "Thông hiểu",
+        "question": "Nước đi số 37 lịch sử của AlphaGo biểu thị cho năng lực đột phá nào của AI?",
+        "options": [
+          "A. Học thuộc lòng ván cờ của con người",
+          "B. Tự đấu với chính mình hàng triệu ván để khám phá ra tri thức/nước đi hoàn toàn mới con người chưa từng đi",
+          "C. Gian lận trong thi đấu",
+          "D. Tra cứu nhanh cơ sở dữ liệu"
+        ],
+        "answer": "B",
+        "explanation": "Nước đi 37 xuất hiện nhờ AlphaGo tự đấu với bản sao hàng triệu lần để tự khám phá nước đi mới [T04-035, T04-036]."
+      },
+      {
+        "id": "Q029",
+        "topic": "Tham số & Huấn luyện",
+        "level": 2,
+        "level_description": "Thông hiểu",
+        "question": "Thuật toán RLHF nâng cao năng lực LLM bằng cơ chế nào?",
+        "options": [
+          "A. Cho mô hình đọc từ điển liên tục",
+          "B. Cài đặt luật thưởng/phạt dựa trên sự đánh giá phản hồi của con người để mô hình tự tối ưu",
+          "C. Tự động xóa các file bị lỗi",
+          "D. Ép mô hình trả lời ngắn gọn"
+        ],
+        "answer": "B",
+        "explanation": "RLHF cài đặt điểm reward/phạt dựa trên đánh giá của con người để huấn luyện mô hình [T04-059]."
+      },
+      {
+        "id": "Q030",
+        "topic": "API & Hyperparameters",
+        "level": 2,
+        "level_description": "Thông hiểu",
+        "question": "Hiện tượng Streaming khi gọi API LLM mang lại trải nghiệm gì cho người dùng?",
+        "options": [
+          "A. Xem được video trong lúc chờ",
+          "B. Trả về kết quả từng từ/token ngay khi vừa sinh ra thay vì chờ sinh xong cả đoạn văn dài",
+          "C. Giảm tiền API xuống 0",
+          "D. Tự động dịch sang tiếng Việt"
+        ],
+        "answer": "B",
+        "explanation": "Streaming trả về từng từ một cho người dùng ngay khi sinh ra thay vì đợi cả đoạn [T04-048]."
+      },
+      {
+        "id": "Q031",
+        "topic": "Kiến trúc LLM Đương đại",
+        "level": 2,
+        "level_description": "Thông hiểu",
+        "question": "Kỹ thuật 'Chưng cất mô hình' (Model Distillation) thực chất là quá trình nào?",
+        "options": [
+          "A. Lọc sạch nước làm mát máy chủ AI",
+          "B. Lấy mô hình nhỏ đi học lại tập dữ liệu và luồng suy luận của các mô hình lớn đã thông minh",
+          "C. Nén file mô hình zip lại",
+          "D. Chuyển mô hình từ Python sang C++"
+        ],
+        "answer": "B",
+        "explanation": "Chưng cất là học lại quy luật suy luận từ mô hình lớn để tạo ra mô hình nhỏ giá rẻ [T04-044]."
+      },
+      {
+        "id": "Q032",
+        "topic": "Thị trường & Xu hướng AI",
+        "level": 2,
+        "level_description": "Thông hiểu",
+        "question": "Khi bài toán có độ phức tạp thấp nhưng khối lượng rất lớn (như phân loại/trích xuất thô), chiến lược nào tối ưu nhất?",
+        "options": [
+          "A. Dùng mô hình đắt nhất như Claude Opus",
+          "B. Thử nghiệm các dòng mô hình giá rẻ nhưng đủ mạnh trước",
+          "C. Tự train LLM từ đầu",
+          "D. Thuê người làm tay"
+        ],
+        "answer": "B",
+        "explanation": "Bài toán đơn giản khối lượng lớn nên tối ưu bằng mô hình rẻ trước để tiết kiệm chi phí [T04-084, T04-096]."
+      },
+      {
+        "id": "Q033",
+        "topic": "Ứng dụng & Kỹ nghệ AI Agent",
+        "level": 2,
+        "level_description": "Thông hiểu",
+        "question": "Tại sao một mô hình LLM đơn lẻ lại cần phải lắp thêm các Tool (công cụ) bên ngoài?",
+        "options": [
+          "A. Vì LLM bị đóng kiến thức tại thời điểm train và không thể tự tương tác trực tiếp với hệ thống bên ngoài",
+          "B. Vì LLM không biết làm phép cộng",
+          "C. Để LLM chạy nhanh hơn 100 lần",
+          "D. Để thay thế hoàn toàn con người"
+        ],
+        "answer": "A",
+        "explanation": "LLM đơn lẻ bị đóng kiến thức nên phải lắp thêm Tool để tra cứu thông tin mới và hành động [T04-067, T04-073]."
+      },
+      {
+        "id": "Q034",
+        "topic": "Tham số & Huấn luyện",
+        "level": 2,
+        "level_description": "Thông hiểu",
+        "question": "Tham số (Parameter) của mô hình LLM đại diện cho điều gì?",
+        "options": [
+          "A. Giá tiền gọi API",
+          "B. Năng lực tri thức và các 'khớp' nối liên kết mô hình tích lũy được qua huấn luyện",
+          "C. Số lượng từ trong từ điển",
+          "D. Dung lượng đĩa cứng cần mua"
+        ],
+        "answer": "B",
+        "explanation": "Parameter hiểu nôm na là khớp nối, năng lực tri thức; càng nhiều tham số thường càng mạnh [T04-058]."
+      },
+      {
+        "id": "Q035",
+        "topic": "Cơ chế LLM & Token",
+        "level": 2,
+        "level_description": "Thông hiểu",
+        "question": "Thí nghiệm mổ 'Black Box' LLM với bàn cờ game 8x8 chứng minh điều gì?",
+        "options": [
+          "A. LLM chỉ học vẹt chuỗi ký tự không hiểu gì",
+          "B. LLM hoàn toàn có thể tự xây dựng một mô hình thế giới (world model) thực sự bên trong để suy luận",
+          "C. LLM không thể chơi được trò chơi",
+          "D. LLM cần con người chỉ từng nước đi"
+        ],
+        "answer": "B",
+        "explanation": "Thí nghiệm mổ black box chứng minh LLM tái tạo được mô hình bàn cờ thế giới bên trong [T04-066]."
+      },
+      {
+        "id": "Q036",
+        "topic": "Lịch sử & Concept AI",
+        "level": 2,
+        "level_description": "Thông hiểu",
+        "question": "Sự khác biệt lớn giữa Machine Learning cổ điển và Deep Learning trong nhận diện hình ảnh là gì?",
+        "options": [
+          "A. Machine Learning không cần máy tính",
+          "B. Machine Learning đòi hỏi con người tự trích xuất đặc trưng bằng tay, còn Deep Learning tự học đặc trưng từ dữ liệu",
+          "C. Deep Learning chạy chậm hơn 1000 lần",
+          "D. Cả hai hoàn toàn giống nhau"
+        ],
+        "answer": "B",
+        "explanation": "Machine learning phải tự mô tả đặc trưng bằng tay, Deep learning tự học đặc trưng từ dữ liệu [T04-030, T04-032]."
+      },
+      {
+        "id": "Q037",
+        "topic": "API & Hyperparameters",
+        "level": 2,
+        "level_description": "Thông hiểu",
+        "question": "Nút लाइक (Like) hoặc Dislike trên giao diện ChatGPT đóng vai trò gì cho nhà phát triển?",
+        "options": [
+          "A. Để trang trí giao diện",
+          "B. Thu thập phản hồi tương tác con người làm dữ liệu đầu vào cho quá trình học RLHF",
+          "C. Tăng tốc độ kết nối internet",
+          "D. Để bớt phí dịch vụ"
+        ],
+        "answer": "B",
+        "explanation": "Like/dislike là dữ liệu tương tác con người để mô hình tiếp tục cải thiện qua RLHF [T04-060]."
+      },
+      {
+        "id": "Q038",
+        "topic": "Thị trường & Xu hướng AI",
+        "level": 2,
+        "level_description": "Thông hiểu",
+        "question": "Lý do chính khiến sự kiện DeepSeek ra mắt đầu năm 2025 làm chấn động ngành đầu tư AI là gì?",
+        "options": [
+          "A. DeepSeek mua lại OpenAI",
+          "B. Chứng minh có thể tạo ra mô hình hiệu năng cao với chi phí huấn luyện cực kỳ rẻ, làm dấy lên nghi vấn bong bóng đầu tư",
+          "C. DeepSeek ngừng cung cấp API",
+          "D. DeepSeek chạy không cần điện"
+        ],
+        "answer": "B",
+        "explanation": "DeepSeek làm ra mô hình mạnh với giá rẻ làm các quỹ đầu tư chững lại nghi vấn bong bóng AI [T04-080]."
+      },
+      {
+        "id": "Q039",
+        "topic": "Prompt Engineering & Context Management",
+        "level": 2,
+        "level_description": "Thông hiểu",
+        "question": "Khi người dùng cung cấp thêm thông tin file PDF vào chat app, thực chất là đang bổ sung yếu tố nào cho LLM?",
+        "options": [
+          "A. Tăng tham số model",
+          "B. Bổ sung thêm Context (ngữ cảnh) vào phiên làm việc",
+          "C. Đào tạo lại (retrain) mô hình",
+          "D. Thay đổi thuật toán Attention"
+        ],
+        "answer": "B",
+        "explanation": "Upload file hay đưa thông tin thực chất là cấp thêm bối cảnh (context) cho LLM [T04-067, T04-074]."
+      },
+      {
+        "id": "Q040",
+        "topic": "Kiến trúc LLM Đương đại",
+        "level": 2,
+        "level_description": "Thông hiểu",
+        "question": "Multimodal LLM (như Kimi K3, GPT-4o) có năng lực nổi bật nào so với LLM chỉ text cổ điển?",
+        "options": [
+          "A. Chỉ đọc được văn bản tiếng Anh",
+          "B. Hiểu và xử lý đồng thời nhiều loại dữ liệu như Hình ảnh, Văn bản, Tài liệu PDF, Tọa độ",
+          "C. Không tiêu tốn token",
+          "D. Tự sửa phần cứng máy tính"
+        ],
+        "answer": "B",
+        "explanation": "Multimodal hiểu đa phương thức: đọc hình ảnh, extract tài liệu PDF định vị tọa độ chuẩn [T04-085]."
+      },
+      {
+        "id": "Q041",
+        "topic": "API & Hyperparameters",
+        "level": 3,
+        "level_description": "Vận dụng",
+        "question": "Khi thiết lập chỉ số Temperature = 0 khi gọi API mô hình LLM, kết quả phản hồi sẽ như thế nào?",
+        "options": [
+          "A. Ngẫu nhiên và sáng tạo nhất",
+          "B. Mô hình từ chối trả lời",
+          "C. Luôn chọn token có xác suất cao nhất, câu trả lời mang tính xác định (deterministic)",
+          "D. Bị tràn bộ nhớ"
+        ],
+        "answer": "C",
+        "explanation": "Temperature = 0 ép mô hình chọn token có xác suất cao nhất, câu trả lời nhất quán [T04-072, T04-096]."
+      },
+      {
+        "id": "Q042",
+        "topic": "API & Hyperparameters",
+        "level": 3,
+        "level_description": "Vận dụng",
+        "question": "Trong thiết lập API, hai tham số Top-k và Top-p đóng vai trò trực tiếp gì?",
+        "options": [
+          "A. Quy định thời gian timeout của API",
+          "B. Khoanh vùng/giới hạn tập hợp token ứng viên được chọn theo số lượng (Top-k) hoặc % xác suất tích lũy (Top-p)",
+          "C. Quy định số ký tự tối đa trả về",
+          "D. Chọn dòng GPU để chạy"
+        ],
+        "answer": "B",
+        "explanation": "Top-k khoanh vùng số lượng, Top-p khoanh vùng theo tổng xác suất cộng dồn [T04-071, T04-072]."
+      },
+      {
+        "id": "Q043",
+        "topic": "API & Hyperparameters",
+        "level": 3,
+        "level_description": "Vận dụng",
+        "question": "Tại sao lượt gọi API thứ 10 trong một ứng dụng Chatbot lại tốn chi phí token hơn lượt thứ 1?",
+        "options": [
+          "A. Do server thu phí phạt",
+          "B. Do toàn bộ lịch sử hội thoại trước đó phải được truyền kèm lại vào Context của lượt gọi mới",
+          "C. Do câu trả lời bị dài ra",
+          "D. Do kết nối mạng bị chậm"
+        ],
+        "answer": "B",
+        "explanation": "Mỗi lần gọi API mới, toàn bộ context history cũ được cộng dồn truyền lên lại [T04-088, T04-096]."
+      },
+      {
+        "id": "Q044",
+        "topic": "Prompt Engineering & Context Management",
+        "level": 3,
+        "level_description": "Vận dụng",
+        "question": "Trong một đoạn Prompt dài, thông tin quan trọng nhất nên đặt ở vị trí nào để Attention Mechanism ít bỏ sót nhất?",
+        "options": [
+          "A. Đặt ở chính giữa văn bản",
+          "B. Đặt ở đoạn ĐẦU hoặc đoạn CUỐI của Prompt",
+          "C. Rải rác ngẫu nhiên",
+          "D. Đặt ở đâu cũng như nhau"
+        ],
+        "answer": "B",
+        "explanation": "Do cơ chế Attention, mô hình chú ý tốt nhất ở phần ĐẦU và phần CUỐI [T04-096]."
+      },
+      {
+        "id": "Q045",
+        "topic": "Tham số & Huấn luyện",
+        "level": 3,
+        "level_description": "Vận dụng",
+        "question": "Sự chuyển dịch nhu cầu của ngành gán nhãn dữ liệu (Data Annotation) hiện nay là gì?",
+        "options": [
+          "A. Thuê thêm người vẽ khung ảnh thô",
+          "B. Chuyển sang thuê nhân sự chuyên gia chất lượng cao (PhD, Chuyên gia) để gán nhãn luồng suy luận",
+          "C. Không thuê người nữa",
+          "D. Chỉ thuê sinh viên năm 1"
+        ],
+        "answer": "B",
+        "explanation": "Ngành gán nhãn chuyển sang thuê chuyên gia để dạy AI luồng tư duy/suy luận [T04-062]."
+      },
+      {
+        "id": "Q046",
+        "topic": "API & Hyperparameters",
+        "level": 3,
+        "level_description": "Vận dụng",
+        "question": "Để viết một bài văn sáng tạo quảng cáo marketing via API, bạn nên điều chỉnh tham số nào?",
+        "options": [
+          "A. Giảm Temperature về 0",
+          "B. Tăng chỉ số Temperature lên cao hơn (ví dụ 0.7 - 0.9)",
+          "C. Đặt Top-k = 1",
+          "D. Xóa System Prompt"
+        ],
+        "answer": "B",
+        "explanation": "Tăng Temperature giúp mở rộng xác suất chọn từ ngẫu nhiên, tăng độ sáng tạo [T04-071]."
+      },
+      {
+        "id": "Q047",
+        "topic": "Ứng dụng & Kỹ nghệ AI Agent",
+        "level": 3,
+        "level_description": "Vận dụng",
+        "question": "Nút bấm 'Yes, Please' đề xuất bước tiếp theo ở cuối câu trả lời ứng với Basekit component nào?",
+        "options": [
+          "A. Carousel",
+          "B. FollowUp",
+          "C. Sequence",
+          "D. Timeline"
+        ],
+        "answer": "B",
+        "explanation": "Component FollowUp hiển thị nút Yes, Please kèm câu hỏi đề xuất bước tiếp theo."
+      },
+      {
+        "id": "Q048",
+        "topic": "Thị trường & Xu hướng AI",
+        "level": 3,
+        "level_description": "Vận dụng",
+        "question": "Khi người dùng muốn tự chạy mô hình AI trên máy tính cá nhân không cần internet, họ nên chọn loại mô hình nào?",
+        "options": [
+          "A. Mô hình đóng GPT-4o API",
+          "B. Mô hình mã nguồn mở (Open Weight / Local Model) ít tham số",
+          "C. Hệ chuyên gia năm 1980",
+          "D. Symbolic AI"
+        ],
+        "answer": "B",
+        "explanation": "Local model mã nguồn mở ít tham số có thể tải về chạy off-grid trên máy cá nhân [T04-058]."
+      },
+      {
+        "id": "Q049",
+        "topic": "API & Hyperparameters",
+        "level": 3,
+        "level_description": "Vận dụng",
+        "question": "Khi muốn AI trả về dữ liệu chuẩn cấu trúc JSON để lập trình trích xuất, kỹ thuật nào được dùng?",
+        "options": [
+          "A. Tăng Temperature lên 2.0",
+          "B. Định hình System Prompt và yêu cầu Structured Output / JSON mode",
+          "C. Dùng mô hình RNN",
+          "D. Đặt top_k = 0"
+        ],
+        "answer": "B",
+        "explanation": "Giao tiếp API cần giao task rõ ràng và cấu hình đầu ra dạng structured JSON [T04-068, T04-089]."
+      },
+      {
+        "id": "Q050",
+        "topic": "Prompt Engineering & Context Management",
+        "level": 3,
+        "level_description": "Vận dụng",
+        "question": "Phương pháp giảm chi phí token cho một cuộc Chatbot dài 50 lượt chat là gì?",
+        "options": [
+          "A. Định kỳ tóm tắt (summarize) lại lịch sử sau mỗi 5-10 lượt thay vì gửi lại toàn bộ raw chat history",
+          "B. Xóa hết câu hỏi người dùng",
+          "C. Chuyển sang dùng tiếng Việt",
+          "D. Tắt tính năng Streaming"
+        ],
+        "answer": "A",
+        "explanation": "Định kỳ tóm tắt lịch sử giúp thu nhỏ context truyền lên, tiết kiệm phí API [T04-088]."
+      },
+      {
+        "id": "Q051",
+        "topic": "Ứng dụng & Kỹ nghệ AI Agent",
+        "level": 3,
+        "level_description": "Vận dụng",
+        "question": "Khi hướng dẫn quy trình cài đặt phần mềm có thứ tự các bước bắt buộc, component nào phù hợp nhất?",
+        "options": [
+          "A. Timeline",
+          "B. Sequence",
+          "C. Carousel",
+          "D. Table"
+        ],
+        "answer": "B",
+        "explanation": "Sequence dùng cho quy trình thủ tục mà thứ tự các bước mang tính sống còn."
+      },
+      {
+        "id": "Q052",
+        "topic": "Ứng dụng & Kỹ nghệ AI Agent",
+        "level": 3,
+        "level_description": "Vận dụng",
+        "question": "Khi trình bày các mốc lịch sử phát triển AI theo thời gian gắn liền với mốc năm, component nào chuẩn nhất?",
+        "options": [
+          "A. Sequence",
+          "B. Timeline",
+          "C. FollowUp",
+          "D. ElicitationsGroup"
+        ],
+        "answer": "B",
+        "explanation": "Timeline dùng khi nội dung mang tính niên đại và mốc thời gian mang giá trị thông tin."
+      },
+      {
+        "id": "Q053",
+        "topic": "API & Hyperparameters",
+        "level": 3,
+        "level_description": "Vận dụng",
+        "question": "Đặc điểm giá trị token giữa Input Token và Output Token khi gọi API là gì?",
+        "options": [
+          "A. Input token luôn đắt hơn Output token",
+          "B. Output token luôn đắt hơn Input token",
+          "C. Cả hai luôn bằng giá nhau",
+          "D. Cả hai đều miễn phí"
+        ],
+        "answer": "B",
+        "explanation": "Mất tiền cho cả input và output, nhưng output token sẽ luôn đắt hơn input [T04-087]."
+      },
+      {
+        "id": "Q054",
+        "topic": "Ứng dụng & Kỹ nghệ AI Agent",
+        "level": 3,
+        "level_description": "Vận dụng",
+        "question": "Khi người dùng hỏi câu hỏi rộng có nhiều hướng khám phá, component gợi ý 1-3 nút bấm là gì?",
+        "options": [
+          "A. FollowUp",
+          "B. ElicitationsGroup",
+          "C. Sequence",
+          "D. Image"
+        ],
+        "answer": "B",
+        "explanation": "ElicitationsGroup gợi ý 1-3 hướng tiếp theo cho prompt rộng."
+      },
+      {
+        "id": "Q055",
+        "topic": "Thị trường & Xu hướng AI",
+        "level": 3,
+        "level_description": "Vận dụng",
+        "question": "Chiến thuật của giảng viên trong bài giảng khi cần làm slide thuyết trình hiệu quả là gì?",
+        "options": [
+          "A. Dùng duy nhất 1 mô hình cho mọi việc",
+          "B. Dùng model mạnh (Kimi K3) làm bộ não planning/extract PDF, sau đó dùng model phù hợp xử lý task",
+          "C. Tự vẽ tay 100%",
+          "D. Thuê lập trình viên viết app"
+        ],
+        "answer": "B",
+        "explanation": "Phối hợp dùng model mạnh để planning/multimodal, rồi chuyển task sang model thích hợp [T04-085]."
+      },
+      {
+        "id": "Q056",
+        "topic": "API & Hyperparameters",
+        "level": 3,
+        "level_description": "Vận dụng",
+        "question": "Nếu muốn mô hình trả về kết quả hoàn toàn giống nhau 100% trong 10 lần chạy thử nghiệm code, cần làm gì?",
+        "options": [
+          "A. Đặt Temperature = 0 và cố định Seed value",
+          "B. Tăng Temperature lên 1.5",
+          "C. Đổi sang model khác mỗi lần gọi",
+          "D. Tăng max_tokens"
+        ],
+        "answer": "A",
+        "explanation": "Đặt temperature = 0 giúp kết quả mang tính deterministic nhất quán giữa các lần [T04-072]."
+      },
+      {
+        "id": "Q057",
+        "topic": "Prompt Engineering & Context Management",
+        "level": 3,
+        "level_description": "Vận dụng",
+        "question": "Khi gặp lỗi tràn ngữ cảnh khi Vibe Coding với AI Assistant, thao tác xử lý chuẩn là gì?",
+        "options": [
+          "A. Mở phiên chat mới và cung cấp file Log/Plan cập nhật tiến độ trước đó",
+          "B. Tiếp tục chat lại câu cũ 10 lần",
+          "C. Cài lại hệ điều hành",
+          "D. Xóa dự án làm lại"
+        ],
+        "answer": "A",
+        "explanation": "Mở phiên chat mới kèm file plan/log giúp giữ ngữ cảnh sạch và tiết kiệm token [T04-057]."
+      },
+      {
+        "id": "Q058",
+        "topic": "API & Hyperparameters",
+        "level": 3,
+        "level_description": "Vận dụng",
+        "question": "Cấu trúc một Request gửi đi API LLM tiêu chuẩn gồm những thành phần cơ bản nào?",
+        "options": [
+          "A. Chỉ có 1 câu văn duy nhất",
+          "B. System Prompt, User Input, Conversation History và các Hyperparameters (Temp, Top-p)",
+          "C. Mã nguồn phần mềm C++",
+          "D. File ảnh đại diện"
+        ],
+        "answer": "B",
+        "explanation": "Request gồm system prompt, user input, history và config thông số [T04-089]."
+      },
+      {
+        "id": "Q059",
+        "topic": "Ứng dụng & Kỹ nghệ AI Agent",
+        "level": 3,
+        "level_description": "Vận dụng",
+        "question": "Để mô phỏng tương tác vật lý 2D hoặc bộ máy tính toán trực quan, component nào được sử dụng?",
+        "options": [
+          "A. Carousel",
+          "B. GenerateWidget",
+          "C. Timeline",
+          "D. FollowUp"
+        ],
+        "answer": "B",
+        "explanation": "GenerateWidget tạo ứng dụng/simulator tương tác trực quan."
+      },
+      {
+        "id": "Q060",
+        "topic": "Thị trường & Xu hướng AI",
+        "level": 3,
+        "level_description": "Vận dụng",
+        "question": "Phương án nào giúp doanh nghiệp bảo vệ dữ liệu nhạy cảm tuyệt đối không đẩy ra ngoài?",
+        "options": [
+          "A. Gọi API ChatGPT công cộng",
+          "B. Self-host mô hình mã nguồn mở (Open Weight) trên server nội bộ",
+          "C. Dùng Google Bard",
+          "D. Đưa dữ liệu lên mạng xã hội"
+        ],
+        "answer": "B",
+        "explanation": "Dữ liệu nhạy cảm cân nhắc self-host mô hình open weight nội bộ [T04-068, T04-096]."
+      },
+      {
+        "id": "Q061",
+        "topic": "Cơ chế LLM & Token",
+        "level": 4,
+        "level_description": "Phân tích",
+        "question": "Hiện tượng 'Context Rot' làm suy giảm hiệu năng LLM như thế nào khi nạp quá nhiều context?",
+        "options": [
+          "A. Máy tính lập tức bị treo",
+          "B. Khi nhồi quá nhiều ngữ cảnh kém chất lượng, mô hình bị chú ý sai chỗ và lãng quên thông tin ở đầu",
+          "C. Tốc độ sinh từ nhanh gấp đôi",
+          "D. Tự động mã hóa dữ liệu"
+        ],
+        "answer": "B",
+        "explanation": "Context quá lớn làm mô hình bị phân tán attention và quên thông tin phía đầu [T04-052, T04-053]."
+      },
+      {
+        "id": "Q062",
+        "topic": "Kiến trúc Transformer",
+        "level": 4,
+        "level_description": "Phân tích",
+        "question": "Hạn chế cốt lõi của mạng RNN làm nó bị thay thế bởi Transformer trong các bài toán văn bản dài là gì?",
+        "options": [
+          "A. Không chạy được trên GPU",
+          "B. Xử lý nối tiếp từng từ gây tắc nghẽn tính toán song song và bị lỗi quên thông tin xa (Long-term dependency)",
+          "C. Không hỗ trợ tiếng Anh",
+          "D. Tốn quá ít dung lượng"
+        ],
+        "answer": "B",
+        "explanation": "RNN đọc nối tiếp từng từ nên không tính toán song song tốt và bị quên thông tin dài [T04-039, T04-094]."
+      },
+      {
+        "id": "Q063",
+        "topic": "Kiến trúc Transformer",
+        "level": 4,
+        "level_description": "Phân tích",
+        "question": "Kỹ thuật Multi-Head Attention giải quyết nguy cơ nào của cơ chế Attention thông thường?",
+        "options": [
+          "A. Nguy cơ thiếu bộ nhớ RAM",
+          "B. Nguy cơ bị góc nhìn phiến diện bằng cách chiếu dữ liệu qua nhiều không gian biểu diễn khác nhau",
+          "C. Nguy cơ lộ mật khẩu",
+          "D. Nguy cơ không nhận diện được dấu câu"
+        ],
+        "answer": "B",
+        "explanation": "Multi-Head Attention soi chiếu nhiều góc độ đặc trưng khác nhau để tránh góc nhìn phiến diện [T04-056]."
+      },
+      {
+        "id": "Q064",
+        "topic": "Kiến trúc LLM Đương đại",
+        "level": 4,
+        "level_description": "Phân tích",
+        "question": "Cơ chế Router trong kiến trúc Mixture of Experts (MoE) đóng vai trò gì?",
+        "options": [
+          "A. Kết nối máy tính với mạng internet",
+          "B. Phân tích câu hỏi đầu vào để điều hướng và chỉ kích hoạt các cụm chuyên gia (Experts) phù hợp nhất",
+          "C. Xóa các token dư thừa",
+          "D. Dịch ngôn ngữ"
+        ],
+        "answer": "B",
+        "explanation": "Router trong MoE điều hướng câu hỏi đến đúng cụm chuyên gia cần kích hoạt [T04-086]."
+      },
+      {
+        "id": "Q065",
+        "topic": "Ứng dụng & Kỹ nghệ AI Agent",
+        "level": 4,
+        "level_description": "Phân tích",
+        "question": "Tại sao việc để công cụ AI tự động tóm tắt (auto-compacting) ngữ cảnh lại tiềm ẩn rủi ro khi lập trình?",
+        "options": [
+          "A. Làm tăng chi phí gấp 10 lần",
+          "B. Người dùng không kiểm soát được AI đã tóm tắt và bỏ sót những chi tiết/quyết định quan trọng nào",
+          "C. Làm cho code bị đổi ngôn ngữ",
+          "D. Khiến máy tính bị khóa"
+        ],
+        "answer": "B",
+        "explanation": "Auto-compacting tự động tóm tắt làm bạn không kiểm soát được các chi tiết quan trọng bị mất [T04-057]."
+      },
+      {
+        "id": "Q066",
+        "topic": "Cơ chế LLM & Token",
+        "level": 4,
+        "level_description": "Phân tích",
+        "question": "Tại sao việc sở hữu Context Window 1 triệu token không đồng nghĩa với việc mô hình sẽ giải quyết bài toán tốt hơn?",
+        "options": [
+          "A. Vì 1 triệu token là quá ít",
+          "B. Vì nạp quá nhiều thông tin loãng sẽ làm phân tán sự chú ý (attention) vào các chi tiết cốt lõi",
+          "C. Vì mô hình sẽ tự động từ chối trả lời",
+          "D. Vì chi phí sẽ giảm về 0"
+        ],
+        "answer": "B",
+        "explanation": "Context lớn nhưng loãng làm mô hình chú ý sai chỗ, context ngắn mà chất lượng hiệu quả hơn [T04-052, T04-053]."
+      },
+      {
+        "id": "Q067",
+        "topic": "Thị trường & Xu hướng AI",
+        "level": 4,
+        "level_description": "Phân tích",
+        "question": "Sự khác biệt giữa việc ứng dụng AI qua Chat App/Coding Assistant và qua API thô là gì?",
+        "options": [
+          "A. Chat App đắt hơn API",
+          "B. Chat App đã có sẵn các lớp Agent/Prompt tinh chỉnh bao bọc, còn API là bản thô đòi hỏi tự quản lý prompt và logic",
+          "C. API không thể trả về văn bản",
+          "D. Chat App không dùng LLM"
+        ],
+        "answer": "B",
+        "explanation": "Chat app/Assistant đã có lớp vỏ tinh chỉnh bao bọc, còn API là bản thô đòi hỏi hiểu sâu kỹ nghệ [T04-068]."
+      },
+      {
+        "id": "Q068",
+        "topic": "Tham số & Huấn luyện",
+        "level": 4,
+        "level_description": "Phân tích",
+        "question": "Tại sao việc gán nhãn dữ liệu bằng kỹ thuật khoanh vùng (bounding box) cổ điển không còn hot hiện nay?",
+        "options": [
+          "A. Vì không ai xem ảnh nữa",
+          "B. Vì các mô hình AI hiện tại đã có khả năng tự nhận diện các tác vụ thô đó cực kỳ tốt",
+          "C. Vì chi phí thuê rẻ quá",
+          "D. Vì bị cấm pháp lý"
+        ],
+        "answer": "B",
+        "explanation": "AI hiện nay một phát đoán được luôn ảnh thô nên không cần nhân công gán nhãn thô nữa [T04-062]."
+      },
+      {
+        "id": "Q069",
+        "topic": "Kiến trúc Transformer",
+        "level": 4,
+        "level_description": "Phân tích",
+        "question": "Phép tính ma trận Attention sinh ra các trọng số giữa các cặp từ đại diện cho yếu tố gì?",
+        "options": [
+          "A. Tốc độ đọc từ",
+          "B. Mức độ liên quan và mối quan hệ ngữ nghĩa giữa các từ trong toàn bộ bối cảnh câu",
+          "C. Thứ tự bảng chữ cái",
+          "D. Số lượng ký tự của từ"
+        ],
+        "answer": "B",
+        "explanation": "Ma trận Attention tính toán trọng số liên quan giữa từng cặp từ với nhau [T04-054]."
+      },
+      {
+        "id": "Q070",
+        "topic": "Thị trường & Xu hướng AI",
+        "level": 4,
+        "level_description": "Phân tích",
+        "question": "Tại sao chiến lược 'chưng cất mô hình' lại giúp các công ty công nghệ Trung Quốc bám đuổi nhanh chóng?",
+        "options": [
+          "A. Vì họ không tốn tiền mua chip",
+          "B. Đi đường tắt bằng cách dùng mô hình nhỏ học trực tiếp quy luật suy luận từ output của các mô hình hàng đầu",
+          "C. Vì họ dùng Symbolic AI",
+          "D. Vì họ bỏ qua bước kiểm thử"
+        ],
+        "answer": "B",
+        "explanation": "Đi đường tắt chưng cất dữ liệu suy luận từ các mô hình lớn giúp tạo bản giá rẻ nhanh chóng [T04-044]."
+      },
+      {
+        "id": "Q071",
+        "topic": "Ứng dụng & Kỹ nghệ AI Agent",
+        "level": 4,
+        "level_description": "Phân tích",
+        "question": "Phân tích rủi ro lớn nhất của dự án App Cứu hộ Thái Nguyên trong bài giảng là gì?",
+        "options": [
+          "A. App bị thiếu giao diện đẹp",
+          "B. Công nghệ làm xong nhanh nhưng khoảng cách vận hành thực tế (connect quân đội, vùng mất sóng) chiếm 80%",
+          "C. Không ai tải ứng dụng",
+          "D. Máy chủ bị cháy"
+        ],
+        "answer": "B",
+        "explanation": "Công nghệ chỉ là phần nhỏ, 80% thành bại nằm ở khâu vận hành thực tế tại hiện trường [T04-010, T04-011]."
+      },
+      {
+        "id": "Q072",
+        "topic": "Kiến trúc LLM Đương đại",
+        "level": 4,
+        "level_description": "Phân tích",
+        "question": "Các chỉ số Benchmark năng lực coding (như SWE-bench) tăng từ 33% lên 80% thể hiện điều gì?",
+        "options": [
+          "A. Mô hình đã biết tự sửa lỗi phần cứng",
+          "B. Năng lực giải quyết bug lập trình của LLM tăng đột biến nhưng đang dần chạm ngưỡng chững lại",
+          "C. Lập trình viên sẽ bị sa thải 100%",
+          "D. Benchmark không có giá trị"
+        ],
+        "answer": "B",
+        "explanation": "Chỉ số benchmark tăng nhanh từ 33% lên 80% nhưng bắt đầu đi chậm lại khi chạm trần [T04-081]."
+      },
+      {
+        "id": "Q073",
+        "topic": "API & Hyperparameters",
+        "level": 4,
+        "level_description": "Phân tích",
+        "question": "Tại sao việc gọi API với Temperature lớn (ví dụ 1.8) lại có thể gây ra kết quả hỗn loạn?",
+        "options": [
+          "A. Mô hình chạy quá nhanh",
+          "B. Phân vùng xác suất bị san phẳng khiến mô hình chọn cả các token xác suất rất thấp không liên quan",
+          "C. API tự động ngắt kết nối",
+          "D. Làm sai lệch mã hóa Token"
+        ],
+        "answer": "B",
+        "explanation": "Temperature quá cao làm phân vùng random quá rộng, lấy cả các token xác suất thấp vô lý [T04-071, T04-072]."
+      },
+      {
+        "id": "Q074",
+        "topic": "Cơ chế LLM & Token",
+        "level": 4,
+        "level_description": "Phân tích",
+        "question": "Nguyên nhân khiến Google Dịch thời kỳ cũ (RNN) dịch rất ngây ngô word-by-word là gì?",
+        "options": [
+          "A. Do dịch thiếu từ",
+          "B. Xử lý từng từ nối tiếp nên không hiểu được cấu trúc ngữ pháp tổng thể khác nhau giữa các quốc gia",
+          "C. Do thiếu từ điển",
+          "D. Do máy tính thời đó chậm"
+        ],
+        "answer": "B",
+        "explanation": "Google Dịch cũ dùng RNN đọc từng từ nên bị dính lỗi word-by-word không hiểu ngữ pháp toàn câu [T04-039]."
+      },
+      {
+        "id": "Q075",
+        "topic": "Tham số & Huấn luyện",
+        "level": 4,
+        "level_description": "Phân tích",
+        "question": "Reverse thought process trong gán nhãn dữ liệu cao cấp nghĩa là làm gì?",
+        "options": [
+          "A. Đọc ngược văn bản từ dưới lên",
+          "B. Bóc tách và khai thác lại toàn bộ chuỗi tư duy từng bước của chuyên gia khi giải quyết vấn đề",
+          "C. Dịch từ tiếng Anh sang tiếng Việt",
+          "D. Xóa các bước làm sai"
+        ],
+        "answer": "B",
+        "explanation": "Reverse thought process là khai thác lại từng bước suy luận trong đầu chuyên gia để dạy AI [T04-062]."
+      },
+      {
+        "id": "Q076",
+        "topic": "Ứng dụng & Kỹ nghệ AI Agent",
+        "level": 4,
+        "level_description": "Phân tích",
+        "question": "Tại sao các lớp bao bọc bên ngoài (Context, Tool, Memory, Guardrail) lại bắt buộc phải có để tạo nên AI Agent?",
+        "options": [
+          "A. Để trang trí cho mô hình",
+          "B. Vì bản thân LLM chỉ là bộ não suy luận thô, cần các lớp này để hành động và tương tác với thực tế",
+          "C. Để làm giảm dung lượng mô hình",
+          "D. Vì quy định pháp luật"
+        ],
+        "answer": "B",
+        "explanation": "LLM chỉ là bộ não, phải lắp thêm tay chân (tool, context, memory) mới thành Agent [T04-073, T04-074]."
+      },
+      {
+        "id": "Q077",
+        "topic": "Thị trường & Xu hướng AI",
+        "level": 4,
+        "level_description": "Phân tích",
+        "question": "Hiện tượng 'Big tech ra feature là Startup chết' diễn ra do đâu?",
+        "options": [
+          "A. Big tech mua lại toàn bộ startup",
+          "B. Startup chỉ giải bài toán ad-hoc nhỏ, khi Big tech nâng cấp model hoặc ra feature mới là giải quyết luôn bài đó",
+          "C. Startup bị cắt nguồn điện",
+          "D. Do lỗi lập trình"
+        ],
+        "answer": "B",
+        "explanation": "Startup giải bài toán quá nhỏ dễ bị khai tử khi big tech tích hợp tính năng đó vào model [T04-078]."
+      },
+      {
+        "id": "Q078",
+        "topic": "Thị trường & Xu hướng AI",
+        "level": 4,
+        "level_description": "Phân tích",
+        "question": "Khoảng cách giữa người dùng gói dịch vụ AI $20 và $200/$2000 ngày càng phân hóa thể hiện xu hướng gì?",
+        "options": [
+          "A. AI ngày càng rẻ cho tất cả mọi người",
+          "B. Năng lực tính toán đắt đỏ tạo ra sự phân hóa tiếp cận mô hình cao cấp giữa người trả được tiền và không",
+          "C. Các công ty AI sắp phá sản",
+          "D. Tất cả mô hình sẽ mở miễn phí"
+        ],
+        "answer": "B",
+        "explanation": "Năng lực tính toán đắt đỏ làm xuất hiện khoảng cách giữa người trả tiền cho model đắt và người dùng hàng cùi [T04-082, T04-083]."
+      },
+      {
+        "id": "Q079",
+        "topic": "Cơ chế LLM & Token",
+        "level": 4,
+        "level_description": "Phân tích",
+        "question": "Phân tích mối quan hệ giữa Attention Score và Ma trận trọng số ngữ nghĩa?",
+        "options": [
+          "A. Attention score càng thấp từ càng quan trọng",
+          "B. Attention score chấm điểm mức độ tập trung giữa các từ, từ đó hình thành ma trận kết nối ngữ nghĩa",
+          "C. Ma trận trọng số chỉ chứa các số 0",
+          "D. Attention score không liên quan đến token"
+        ],
+        "answer": "B",
+        "explanation": "Attention chấm điểm mối liên quan giữa các từ để tạo ra ma trận trọng số ngữ nghĩa [T04-054, T04-096]."
+      },
+      {
+        "id": "Q080",
+        "topic": "Prompt Engineering & Context Management",
+        "level": 4,
+        "level_description": "Phân tích",
+        "question": "Tại sao kỹ thuật giao việc cho Agent phải làm rõ đầu ra (output format) lại quan trọng khi dùng API?",
+        "options": [
+          "A. Vì API chạy chậm hơn Chat App",
+          "B. Vì API là bản thô không có lớp trung gian xử lý các yêu cầu mơ hồ như Chat App",
+          "C. Vì API không hiểu tiếng Anh",
+          "D. Vì tốn nhiều RAM hơn"
+        ],
+        "answer": "B",
+        "explanation": "API là bản thô không xử lý được task mơ hồ nên phải prompt đủ rõ ràng và định dạng đầu ra [T04-068]."
+      },
+      {
+        "id": "Q081",
+        "topic": "Ứng dụng & Kỹ nghệ AI Agent",
+        "level": 5,
+        "level_description": "Đánh giá",
+        "question": "Yếu tố nào được khẳng định là quyết định đến 80% sự thành công khi đưa sản phẩm AI Agent ra thực tế?",
+        "options": [
+          "A. Giao diện người dùng bắt mắt",
+          "B. Xây dựng hệ thống Đánh giá tự động (Evaluation Benchmark System) chất lượng",
+          "C. Mua mô hình đắt tiền nhất",
+          "D. Viết Prompt thật dài"
+        ],
+        "answer": "B",
+        "explanation": "Evaluation quyết định 80% thành công vì giúp kiểm soát chất lượng, debug và đo lường khi đổi model [T04-075]."
+      },
+      {
+        "id": "Q082",
+        "topic": "Thị trường & Xu hướng AI",
+        "level": 5,
+        "level_description": "Đánh giá",
+        "question": "Đánh giá tính hợp lý của việc nỗ lực tối ưu ad-hoc một task hẹp từ 95% lên 96% trong giai đoạn hiện nay?",
+        "options": [
+          "A. Rất nên làm vì 96% là tiêu chuẩn bắt buộc",
+          "B. Cần cân nhắc kỹ vì mô hình mới ra rất nhanh, một model mới tháng sau có thể giải quyết luôn bài đó",
+          "C. Bắt buộc làm bằng mọi giá",
+          "D. Không bao giờ tối ưu sản phẩm"
+        ],
+        "answer": "B",
+        "explanation": "Tốc độ ra model rất nhanh, nỗ lực tối ưu ad-hoc quá nhỏ dễ bị lãng phí khi model đời sau ra mắt [T04-077]."
+      },
+      {
+        "id": "Q083",
+        "topic": "Thị trường & Xu hướng AI",
+        "level": 5,
+        "level_description": "Đánh giá",
+        "question": "Thách thức chiến lược hạ tầng lớn nhất mà ngành AI thế giới đối mặt đến năm 2026 là gì?",
+        "options": [
+          "A. Thiếu ý tưởng ứng dụng",
+          "B. Tình trạng thiếu hụt năng lực tính toán và chi phí phần cứng GPU ngày càng đắt đỏ",
+          "C. Người dùng không dùng internet nữa",
+          "D. Thiếu điện lưới toàn cầu"
+        ],
+        "answer": "B",
+        "explanation": "Thế giới đi vào giai đoạn thiếu năng lực tính toán và giá GPU đắt đỏ [T04-082]."
+      },
+      {
+        "id": "Q084",
+        "topic": "Ứng dụng & Kỹ nghệ AI Agent",
+        "level": 5,
+        "level_description": "Đánh giá",
+        "question": "Đánh giá tư duy đúng đắn nhất khi lựa chọn mô hình LLM để build sản phẩm doanh nghiệp?",
+        "options": [
+          "A. Luôn chọn model đắt nhất thị trường",
+          "B. Hiểu rõ bài toán, đánh giá sức mạnh từng model và chọn model phù hợp nhất với ngân sách và task",
+          "C. Chỉ dùng mô hình miễn phí",
+          "D. Đổi model liên tục mỗi giờ"
+        ],
+        "answer": "B",
+        "explanation": "Phải hiểu bài toán và sức mạnh mô hình để đưa ra lựa chọn phù hợp nhất [T04-045, T04-084]."
+      },
+      {
+        "id": "Q085",
+        "topic": "Ứng dụng & Kỹ nghệ AI Agent",
+        "level": 5,
+        "level_description": "Đánh giá",
+        "question": "Lợi ích cốt lõi nhất của việc xây dựng bộ Dataset Benchmark Evaluation tự động là gì?",
+        "options": [
+          "A. Để khoe với khách hàng",
+          "B. Giúp trả lời ngay câu hỏi có thể deploy model mới ra ngay ngày mai không và sửa lỗi chính xác ở đâu",
+          "C. Tăng tốc độ mạng",
+          "D. Giảm số dòng code trong ứng dụng"
+        ],
+        "answer": "B",
+        "explanation": "Evaluation tự động giúp biết ngay hệ thống tác động thế nào khi thay đổi logic/model để đi nhanh [T04-075]."
+      },
+      {
+        "id": "Q086",
+        "topic": "Thị trường & Xu hướng AI",
+        "level": 5,
+        "level_description": "Đánh giá",
+        "question": "Góc nhìn chiến lược cho lập trình viên/builder Việt Nam trong cuộc đua AI toàn cầu là gì?",
+        "options": [
+          "A. Cố gắng cạnh tranh tự train LLM nền tảng với Mỹ",
+          "B. Tập trung thế mạnh ứng dụng, am hiểu dữ liệu và giải quyết bài toán đặc trưng của Việt Nam",
+          "C. Từ bỏ không làm công nghệ nữa",
+          "D. Chờ đợi công nghệ ngừng phát triển"
+        ],
+        "answer": "B",
+        "explanation": "Việt Nam không theo kịp train model lớn nhưng có lợi thế ứng dụng tốt vào bài toán và dữ liệu bản địa [T04-045]."
+      },
+      {
+        "id": "Q087",
+        "topic": "Ứng dụng & Kỹ nghệ AI Agent",
+        "level": 5,
+        "level_description": "Đánh giá",
+        "question": "Đánh giá tính bền vững của một sản phẩm AI dựa trên bài học từ ứng dụng cứu hộ thiên tai?",
+        "options": [
+          "A. Chỉ cần ứng dụng viral có nhiều user là đủ",
+          "B. Công nghệ chỉ đóng góp khoảng 20%, sự thành bại bền vững phụ thuộc 80% vào năng lực vận hành thực tế",
+          "C. Giao diện đẹp sẽ quyết định tất cả",
+          "D. Càng nhiều AI càng tốt"
+        ],
+        "answer": "B",
+        "explanation": "Để đi lâu dài công nghệ là không đủ, 80% còn lại là khâu vận hành thực tế [T04-011]."
+      },
+      {
+        "id": "Q088",
+        "topic": "Thị trường & Xu hướng AI",
+        "level": 5,
+        "level_description": "Đánh giá",
+        "question": "Tại sao việc đọc các bài blog best practice về AI của 2 năm trước (2024) cần phải rất cân nhắc vào thời điểm 2026?",
+        "options": [
+          "A. Vì kiến thức cũ bị sai hoàn toàn về toán học",
+          "B. Vì tốc độ thay đổi quá nhanh, những kiến trúc hạ tầng đồ sộ ngày xưa nay có thể giải xong bằng 1 model mới",
+          "C. Vì các bài blog cũ đã bị xóa",
+          "D. Vì ngôn ngữ lập trình đã thay đổi"
+        ],
+        "answer": "B",
+        "explanation": "Thị trường đi nhanh đến mức công thức 2 năm trước có thể không áp dụng được do model mới quá mạnh [T04-079]."
+      },
+      {
+        "id": "Q089",
+        "topic": "Prompt Engineering & Context Management",
+        "level": 5,
+        "level_description": "Đánh giá",
+        "question": "Đánh giá chiến lược quản lý Context tối ưu khi làm việc với AI Coding Agent?",
+        "options": [
+          "A. Tống tất cả file mã nguồn dự án vào một prompt",
+          "B. Quản lý sự chú ý: chỉ cung cấp đúng thông tin chất lượng cần thiết và ghi chép tiến độ ra file plan",
+          "C. Không cung cấp context nào",
+          "D. Xóa context sau mỗi câu chat"
+        ],
+        "answer": "B",
+        "explanation": "Quản lý context tốt là biết lúc nào đưa cái gì cho AI và chỉ định rõ điều cần chú ý [T04-053, T04-057]."
+      },
+      {
+        "id": "Q090",
+        "topic": "Thị trường & Xu hướng AI",
+        "level": 5,
+        "level_description": "Đánh giá",
+        "question": "Tại sao chiến lược quốc gia về AI của Trung Quốc năm 2016 lại được xem là bài học thành công về đào tạo?",
+        "options": [
+          "A. Vì họ cấm sử dụng AI của Mỹ",
+          "B. Phản ứng nhanh sau sự cố AlphaGo, tập trung nguồn lực giáo dục, ươm mầm nhân tài và tạo ra các thế hệ như DeepSeek",
+          "C. Vì họ mua lại Google",
+          "D. Vì họ ngừng dạy lập trình"
+        ],
+        "answer": "B",
+        "explanation": "Trung Quốc hành động cực nhanh sau sự cố AlphaGo 2016, tập trung giáo dục ươm mầm nhân tài [T04-037]."
+      },
+      {
+        "id": "Q091",
+        "topic": "Ứng dụng & Kỹ nghệ AI Agent",
+        "level": 5,
+        "level_description": "Đánh giá",
+        "question": "Đánh giá sự khác biệt cốt lõi giữa việc 'Build Chatbot' và 'Build AI Agent' cho doanh nghiệp?",
+        "options": [
+          "A. Chatbot tốn nhiều tiền hơn Agent",
+          "B. Chatbot chỉ sinh văn bản trả lời, Agent có khả năng lập kế hoạch, sử dụng Tool để hành động với thế giới",
+          "C. Agent không dùng mô hình ngôn ngữ",
+          "D. Cả hai là một khái niệm hoàn toàn trùng nhau"
+        ],
+        "answer": "B",
+        "explanation": "Chatbot chỉ sinh văn bản, Agent có tay chân tool để tương tác thực hiện công việc [T04-073]."
+      },
+      {
+        "id": "Q092",
+        "topic": "Thị trường & Xu hướng AI",
+        "level": 5,
+        "level_description": "Đánh giá",
+        "question": "Đánh giá tác động của việc hạ giá API 10 lần mỗi năm đối với các nhà phát triển ứng dụng?",
+        "options": [
+          "A. Làm ứng dụng bị lỗ vốn",
+          "B. Mở ra cơ hội ứng dụng AI vào các tác vụ trước đây quá đắt đỏ, giúp bình dân hóa việc tích hợp AI",
+          "C. Làm cho AI chạy chậm hơn",
+          "D. Khiến các nhà phát triển mất việc"
+        ],
+        "answer": "B",
+        "explanation": "Giá API giảm 10 lần/năm mở ra cơ hội đưa AI vào các tác vụ thực tế với chi phí tối ưu [T04-076]."
+      },
+      {
+        "id": "Q093",
+        "topic": "Tham số & Huấn luyện",
+        "level": 5,
+        "level_description": "Đánh giá",
+        "question": "Đánh giá vai trò của yếu tố con người (Human-in-the-loop) trong kỷ nguyên LLM hiện nay?",
+        "options": [
+          "A. Con người hoàn toàn bị thay thế không còn vai trò",
+          "B. Con người đóng vai trò chuyên gia huấn luyện, định hướng logic và đánh giá chất lượng đầu ra (RLHF)",
+          "C. Con người chỉ làm việc nhập liệu thô",
+          "D. Con người chỉ bật tắt máy chủ"
+        ],
+        "answer": "B",
+        "explanation": "Con người luôn cần thiết ở level chuyên gia để đánh giá và định hướng suy luận cho AI [T04-062]."
+      },
+      {
+        "id": "Q094",
+        "topic": "Kiến trúc LLM Đương đại",
+        "level": 5,
+        "level_description": "Đánh giá",
+        "question": "Lựa chọn chiến trúc mô hình đóng (Closed) vs mã nguồn mở (Open Weight) dựa trên tiêu chí nào?",
+        "options": [
+          "A. Luôn ưu tiên mô hình đóng",
+          "B. Mô hình đóng cho tiện lợi và sức mạnh hàng đầu; Mô hình mở cho quyền kiểm soát dữ liệu riêng tư và quy mô chi phí lớn",
+          "C. Luôn chọn mô hình mở",
+          "D. Chọn ngẫu nhiên"
+        ],
+        "answer": "B",
+        "explanation": "Cân nhắc self-host open weight khi có dữ liệu nhạy cảm hoặc chi phí quy mô lớn [T04-068, T04-096]."
+      },
+      {
+        "id": "Q095",
+        "topic": "Prompt Engineering & Context Management",
+        "level": 5,
+        "level_description": "Đánh giá",
+        "question": "Đánh giá rủi ro lớn nhất khi xây dựng sản phẩm AI mà không có quy trình thử nghiệm Evaluation?",
+        "options": [
+          "A. Không thể đăng ký tài khoản API",
+          "B. Sản phẩm chỉ chạy demo tốt nhưng sẽ vỡ mộng và sai sót hàng loạt khi đưa ra thực tế mà không thể debug",
+          "C. Giao diện ứng dụng bị lỗi font",
+          "D. Tốn ít tiền hơn"
+        ],
+        "answer": "B",
+        "explanation": "Không có evaluation sẽ dễ vỡ mộng khi đưa ra thực tế vì không debug được rủi ro [T04-075, T04-091]."
+      },
+      {
+        "id": "Q096",
+        "topic": "Thị trường & Xu hướng AI",
+        "level": 5,
+        "level_description": "Đánh giá",
+        "question": "Tại sao việc xây dựng hệ thống có khả năng tự học (self-learning) lại được đánh giá cao hơn tối ưu thủ công?",
+        "options": [
+          "A. Vì dễ viết code hơn",
+          "B. Giúp hệ thống tự adapt với các quy luật và dữ liệu mới thay vì phải liên tục sửa thủ công gây nợ kỹ thuật",
+          "C. Vì không cần dùng máy tính",
+          "D. Vì chi phí rẻ hơn 1000 lần"
+        ],
+        "answer": "B",
+        "explanation": "Xây dựng hệ thống tự học giúp thích ứng tốt với bối cảnh mới bền vững hơn [T04-078]."
+      },
+      {
+        "id": "Q097",
+        "topic": "Ứng dụng & Kỹ nghệ AI Agent",
+        "level": 5,
+        "level_description": "Đánh giá",
+        "question": "Đánh giá về tư duy 'Vibe Coding' với AI trong kỷ nguyên mới?",
+        "options": [
+          "A. Không cần tư duy logic chỉ cần bấm nút",
+          "B. Lập trình viên đóng vai trò kiến trúc sư quản lý bối cảnh, định hướng logic và giao việc hiệu quả cho AI Agent",
+          "C. Phụ thuộc 100% không cần đọc code",
+          "D. Vibe coding là công cụ vẽ ảnh"
+        ],
+        "answer": "B",
+        "explanation": "Vibe coding đòi hỏi người lập trình quản lý context và sự chú ý của AI thật tốt [T04-053, T04-057]."
+      },
+      {
+        "id": "Q098",
+        "topic": "Thị trường & Xu hướng AI",
+        "level": 5,
+        "level_description": "Đánh giá",
+        "question": "Đánh giá vị thế cạnh tranh của các mô hình LLM hàng đầu Mỹ (Claude, GPT) và Trung Quốc (Qwen, DeepSeek)?",
+        "options": [
+          "A. Mỹ hoàn toàn áp đảo không ai đuổi kịp",
+          "B. Mỹ đi đầu về nghiên cứu đột phá nền tảng; Trung Quốc tối ưu cực tốt về chi phí, mã nguồn mở và chưng cất dữ liệu",
+          "C. Trung Quốc đã vượt Mỹ về mọi mặt",
+          "D. Cả hai bên ngừng phát triển"
+        ],
+        "answer": "B",
+        "explanation": "Mỹ mạnh về nghiên cứu nền tảng hàng đầu, Trung Quốc có chiến lược clone/chưng cất tối ưu giá rẻ nhanh chóng [T04-043, T04-044]."
+      },
+      {
+        "id": "Q099",
+        "topic": "Cơ chế LLM & Token",
+        "level": 5,
+        "level_description": "Đánh giá",
+        "question": "Tầm quan trọng của việc thấu hiểu bản chất toán học xác suất của LLM đối với người phát triển sản phẩm?",
+        "options": [
+          "A. Không có tác dụng gì",
+          "B. Giúp người làm hiểu nguyên nhân ảo giác, biết cách điều chỉnh tham số sampling và thiết kế guardrail phù hợp",
+          "C. Giúp viết Prompt dài hơn",
+          "D. Giúp giảm tiền điện máy tính"
+        ],
+        "answer": "B",
+        "explanation": "Hiểu bản chất xác suất giúp làm chủ việc chỉnh tham số API và thiết kế giải pháp chống ảo giác [T04-048, T04-071]."
+      },
+      {
+        "id": "Q100",
+        "topic": "Ứng dụng & Kỹ nghệ AI Agent",
+        "level": 5,
+        "level_description": "Đánh giá",
+        "question": "Đánh giá tổng quan về mục tiêu cốt lõi của khóa học 'AI Thực Chiến' được chia sẻ ở Day 1?",
+        "options": [
+          "A. Đào tạo học viên tự nghiên cứu toán học train mô hình LLM từ đầu",
+          "B. Trang bị nền tảng logic LLM và tư duy thực chiến để ứng dụng, xây dựng các công cụ và AI Agent trên nền tảng LLM",
+          "C. Đào tạo kỹ năng gán nhãn dữ liệu thô",
+          "D. Hướng dẫn lắp ráp phần cứng GPU"
+        ],
+        "answer": "B",
+        "explanation": "Scope của khóa học là đi sâu hiểu bản chất LLM và build các công cụ, AI Agent trên nền tảng LLM [T04-003]."
+      }
+    ]
+  }
